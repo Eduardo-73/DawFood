@@ -16,7 +16,7 @@ public class MetodosDeClases {
         Comida c1 = new Comida("Ensalada Atún", 0);
         Comida c2 = new Comida("Secreto Iberico", 0);
         Comida c3 = new Comida("Entrecot", 0);
-        Comida c4 = new Comida(nombreComida, 0);
+        Comida c4 = new Comida(nombreComida,  0);
         Comida c5 = new Comida(nombreComida, 0);
         Comida c6 = new Comida(nombreComida, 0);
         Comida c7 = new Comida(nombreComida, 0);
