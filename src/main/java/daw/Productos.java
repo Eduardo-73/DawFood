@@ -1,77 +1,109 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Record.java to edit this template
  */
 package daw;
 
-import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
- * @author edu
+ * @author eduar
  */
 public class Productos {
 
-    // Atributos encapsulados
-    private ArrayList<Comida> comida;
-    private ArrayList<Bebida> bebida;
-    private ArrayList<Postres> postre;
+    public static Random rd = new Random();
 
-    // Constructores
-    public Productos(ArrayList<Comida> comida, ArrayList<Bebida> bebida,
-            ArrayList<Postres> postre) {
-        this.comida = comida;
-        this.bebida = bebida;
-        this.postre = postre;
+    private int id;
+    private String descripcion;
+    private Categorias categoria;
+    private Subcategorias sc;
+    private double precio;
+    private IVA iva;
+    private int stock;
+    int contador = 0;
+
+    // Constructor
+    public Productos(String descripcion, Categorias categoria, Subcategorias sc,
+            double precio, IVA iva) {
+        this.id = contador++;
+        this.descripcion = descripcion;
+        this.categoria = categoria;
+        this.sc = sc;
+        this.precio = precio;
+        this.iva = iva;
+        this.stock = rd.nextInt(1, 30 + 1);
     }
 
-    public Productos() {
+    // Get y Set
+    public int getId() {
+        return id;
     }
 
-    // Get y Set 
-    public ArrayList<Comida> getComida() {
-        return comida;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setComida(ArrayList<Comida> comida) {
-        this.comida = comida;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public ArrayList<Bebida> getBebida() {
-        return bebida;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public void setBebida(ArrayList<Bebida> bebida) {
-        this.bebida = bebida;
+    public Categorias getCategoria() {
+        return categoria;
     }
 
-    public ArrayList<Postres> getPostre() {
-        return postre;
+    public void setCategoria(Categorias categoria) {
+        this.categoria = categoria;
     }
 
-    public void setPostre(ArrayList<Postres> postre) {
-        this.postre = postre;
+    public Subcategorias getSc() {
+        return sc;
     }
 
-    // ToString 
+    public void setSc(Subcategorias sc) {
+        this.sc = sc;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public IVA getIva() {
+        return iva;
+    }
+
+    public void setIva(IVA iva) {
+        this.iva = iva;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    // ToString
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        String texto1 = "";
-        String texto2 = "";
-        String texto3 = "";
-        for (int i = 0; i < this.comida.size(); i++) {
-            texto1 += this.comida.get(i);
-        }
-        sb.append(texto1);
-        for (int i = 0; i < this.bebida.size(); i++) {
-            texto2 += this.bebida.get(i);
-        }
-        sb.append(texto2);
-        for (int i = 0; i < this.postre.size(); i++) {
-            texto3 += this.postre.get(i);
-        }
-        sb.append(texto3);
+        sb.append("ID = ").append(id);
+        sb.append(", Descripción = ").append(descripcion);
+        sb.append(", Categoría = ").append(categoria.valorCategorias);
+        sb.append(", SubCategoría = ").append(sc.valorCategoria);
+        sb.append(", Precio = ").append(precio);
+        sb.append(", Precio con IVA = ").append(iva);
+        sb.append(", Stock = ").append(stock);
         return sb.toString();
     }
+
 }

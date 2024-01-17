@@ -5,6 +5,7 @@
 package daw;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,13 +15,6 @@ public class DawFood {
 
     public static void main(String[] args) {
 
-        String menuPrincipal = """
-                               ***********************
-                                1.- Modo Usuario
-                                2.- Modo Administrador
-                               ***********************
-                               """;
-
         String menuSegundario = """
                                ************************ 
                                 1.- Menú Comida
@@ -29,17 +23,9 @@ public class DawFood {
                                 4-. Mostrar Carrito
                                ************************
                                 """;
-        ArrayList<Comida> carne = new ArrayList<>();
-        Comida c1 = new Comida("Ensaladas", 12.6);
-        ArrayList<Bebida> gaseosa = new ArrayList<>();
-        Bebida b1 = new Bebida("Fanta", 2.5);
-        ArrayList<Postres> tartas = new ArrayList<>();
-        Postres t1 = new Postres("Tarta de Queso", 6.00);
 
-        Productos p1 = new Productos(carne, gaseosa, tartas);
-        System.out.println(c1);
-        System.out.println(b1);
-        System.out.println(t1);
-        System.out.println(p1);
+        String color = JOptionPane.showInputDialog(null, "Seleccione Un Color",
+                "Modos", JOptionPane.QUESTION_MESSAGE, null,
+                new String[]{"Modo Usuario", "Modo Administrador"}, "Seleccione");
     }
 }
