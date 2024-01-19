@@ -13,8 +13,8 @@ public enum Subcategorias {
     ENSALADAS("Ensaladas "),
     CARNES("Carnes "),
     PESCADOS("Pescados "),
-    GASEOSAS("Bebidas con Gas "),
-    ALCOHOLICAS("Bebidas alcohólicas"),
+    REFRESCOS("Bebidas con Gas "),
+    ALCOHOL("Bebidas alcohólicas"),
     CAFES("Cafes e Infusiones ");
     
     String valorCategoria;

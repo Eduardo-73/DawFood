@@ -14,14 +14,14 @@ public class Productos {
 
     public static Random rd = new Random();
 
-    private int id;
+    private final int id;
     private String descripcion;
     private Categorias categoria;
     private Subcategorias sc;
     private double precio;
     private IVA iva;
     private int stock;
-    int contador = 0;
+    private static int contador = 1;
 
     // Constructor
     public Productos(String descripcion, Categorias categoria, Subcategorias sc,
@@ -38,10 +38,6 @@ public class Productos {
     // Get y Set
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getDescripcion() {
@@ -98,8 +94,8 @@ public class Productos {
         StringBuilder sb = new StringBuilder();
         sb.append("ID = ").append(id);
         sb.append(", Descripción = ").append(descripcion);
-        sb.append(", Categoría = ").append(categoria.valorCategorias);
-        sb.append(", SubCategoría = ").append(sc.valorCategoria);
+        sb.append(", ").append(categoria.valorCategorias);
+        sb.append(", ").append(sc.valorCategoria);
         sb.append(", Precio = ").append(precio);
         sb.append(", Precio con IVA = ").append(iva);
         sb.append(", Stock = ").append(stock);

@@ -1,5 +1,8 @@
-daw/DawFood.class
-daw/Comida.class
-daw/Postres.class
-daw/Productos.class
-daw/Bebida.class
+daw\Subcategorias.class
+daw\JOptionPanePane.class
+daw\DawFood.class
+daw\IVA.class
+daw\Menu.class
+daw\Productos.class
+daw\MetodosDeClases.class
+daw\Categorias.class
