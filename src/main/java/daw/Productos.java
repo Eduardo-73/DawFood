@@ -92,14 +92,11 @@ public class Productos {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("ID = ").append(id);
+        sb.append("Número Carta = ").append(id);
         sb.append(", Descripción = ").append(descripcion);
-        sb.append(", ").append(categoria.valorCategorias);
-        sb.append(", ").append(sc.valorCategoria);
         sb.append(", Precio = ").append(precio);
         sb.append(", Precio con IVA = ").append(iva);
         sb.append(", Stock = ").append(stock);
         return sb.toString();
     }
-
 }

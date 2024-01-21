@@ -14,14 +14,10 @@ import javax.swing.JOptionPane;
 public class DawFood {
 
     public static void main(String[] args) {
-        int menu;
+        int menu, posicion = 0;
         String menuCarta;
-        ArrayList<Productos> carnes = MetodosDeClases.carnes();
-        ArrayList<Productos> ensaladas = MetodosDeClases.ensaladas();
-        ArrayList<Productos> pescados = MetodosDeClases.pescados();
-        ArrayList<Productos> refrescos = MetodosDeClases.refrescos();
-        ArrayList<Productos> alcohol = MetodosDeClases.alcoholes();
-        ArrayList<Productos> cafes = MetodosDeClases.cafesInfusiones();
+        ArrayList<Productos> menuTPV = MetodosDeClases.cartaTPV();
+        ArrayList<Productos> carrito = new ArrayList<>();
 
         do {
             menu = MetodosDeClases.menuModos();
@@ -31,13 +27,13 @@ public class DawFood {
                         menuCarta = MetodosDeClases.menuComida();
                         switch (menuCarta) {
                             case "Carta Comidas" -> {
-                                MetodosDeClases.CartaComidas(carnes, ensaladas,
-                                        pescados);
+                                posicion = MetodosDeClases.cartaComidas(menuTPV);
+                                carrito = MetodosDeClases.carrito(menuTPV, posicion);
                             }
 
                             case "Cartas Bebidas" -> {
-                                MetodosDeClases.CartaBebidas(refrescos, alcohol,
-                                        cafes);
+                                posicion = MetodosDeClases.cartaBebidas(menuTPV);
+                                carrito = MetodosDeClases.carrito(menuTPV, posicion);
                             }
 
                             case "Cartas Postres" -> {
@@ -45,7 +41,7 @@ public class DawFood {
                             }
 
                             case "Carrito" -> {
-
+                                MetodosDeClases.mostrarArray(carrito);
                             }
 
                         }

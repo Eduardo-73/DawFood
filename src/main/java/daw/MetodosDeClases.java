@@ -13,114 +13,83 @@ import javax.swing.JOptionPane;
  */
 public class MetodosDeClases {
 
-    public static ArrayList<Productos> ensaladas() {
-        Productos p1 = new Productos("Ensalada de atún",
+    public static ArrayList<Productos> cartaTPV() {
+        ArrayList<Productos> menu = new ArrayList<>();
+        menu.add(new Productos("Ensalada de atún",
                 Categorias.COMIDAS, Subcategorias.ENSALADAS,
-                12.5, IVA.DIEZ);
-        Productos p2 = new Productos("Ensalada de queso de cabra",
+                12.5, IVA.DIEZ));
+        menu.add(new Productos("Ensalada de queso de cabra",
                 Categorias.COMIDAS, Subcategorias.ENSALADAS,
-                18.20, IVA.DIEZ);
-        Productos p3 = new Productos("Ensalada César",
+                18.20, IVA.DIEZ));
+        menu.add(new Productos("Ensalada César",
                 Categorias.COMIDAS, Subcategorias.ENSALADAS,
-                10.5, IVA.DIEZ);
-        ArrayList<Productos> ensaladas = new ArrayList<>();
-        ensaladas.add(p1);
-        ensaladas.add(p2);
-        ensaladas.add(p3);
-        return ensaladas;
-    }
-
-    public static ArrayList<Productos> carnes() {
-        Productos p1 = new Productos("Pechuga de pollo",
+                10.5, IVA.DIEZ));
+        menu.add(new Productos("Pechuga de pollo",
                 Categorias.COMIDAS, Subcategorias.CARNES,
-                15.00, IVA.DIEZ);
-        Productos p2 = new Productos("Entrecot",
+                15.00, IVA.DIEZ));
+        menu.add(new Productos("Entrecot",
                 Categorias.COMIDAS, Subcategorias.CARNES,
-                23.00, IVA.DIEZ);
-        Productos p3 = new Productos("Sécreto",
+                23.00, IVA.DIEZ));
+        menu.add(new Productos("Sécreto",
                 Categorias.COMIDAS, Subcategorias.CARNES,
-                18.50, IVA.DIEZ);
-        ArrayList<Productos> carnes = new ArrayList<>();
-        carnes.add(p1);
-        carnes.add(p2);
-        carnes.add(p3);
-        return carnes;
-    }
-
-    public static ArrayList<Productos> pescados() {
-        Productos p1 = new Productos("Lubina",
+                18.50, IVA.DIEZ));
+        menu.add(new Productos("Lubina",
                 Categorias.COMIDAS, Subcategorias.PESCADOS,
-                20.00, IVA.DIEZ);
-        Productos p2 = new Productos("Boquerones",
+                20.00, IVA.DIEZ));
+        menu.add(new Productos("Boquerones",
                 Categorias.COMIDAS, Subcategorias.PESCADOS,
-                12.99, IVA.DIEZ);
-        Productos p3 = new Productos("Pez espada",
+                12.99, IVA.DIEZ));
+        menu.add(new Productos("Pez espada",
                 Categorias.COMIDAS, Subcategorias.PESCADOS,
-                25.00, IVA.DIEZ);
-        ArrayList<Productos> pescados = new ArrayList<>();
-        pescados.add(p1);
-        pescados.add(p2);
-        pescados.add(p3);
-        return pescados;
+                25.00, IVA.DIEZ));
+        menu.add(new Productos("Fanta Naranja",
+                Categorias.BEBIDAS, Subcategorias.REFRESCOS,
+                2.50, IVA.VENTIUNO));
+        menu.add(new Productos("Coca-cola",
+                Categorias.BEBIDAS, Subcategorias.REFRESCOS,
+                2.50, IVA.VENTIUNO));
+        menu.add(new Productos("Sprite",
+                Categorias.BEBIDAS, Subcategorias.REFRESCOS,
+                2.50, IVA.VENTIUNO));
+        menu.add(new Productos("Blue Label",
+                Categorias.BEBIDAS, Subcategorias.ALCOHOL,
+                30.00, IVA.VENTIUNO));
+        menu.add(new Productos("Double Black Label",
+                Categorias.BEBIDAS, Subcategorias.ALCOHOL,
+                15.00, IVA.VENTIUNO));
+        menu.add(new Productos("Red Label",
+                Categorias.BEBIDAS, Subcategorias.ALCOHOL,
+                12.00, IVA.VENTIUNO));
+        menu.add(new Productos("Té de Menta",
+                Categorias.BEBIDAS, Subcategorias.CAFES,
+                2.50, IVA.DIEZ));
+        menu.add(new Productos("Café Soló",
+                Categorias.BEBIDAS, Subcategorias.CAFES,
+                2.50, IVA.DIEZ));
+        menu.add(new Productos("Café con Leche",
+                Categorias.BEBIDAS, Subcategorias.CAFES,
+                2.50, IVA.DIEZ));
+        return menu;
     }
 
-    public static ArrayList<Productos> refrescos() {
-        Productos p1 = new Productos("Fanta Naranja",
-                Categorias.BEBIDAS, Subcategorias.REFRESCOS,
-                2.50, IVA.VENTIUNO);
-        Productos p2 = new Productos("Coca-cola",
-                Categorias.BEBIDAS, Subcategorias.REFRESCOS,
-                2.50, IVA.VENTIUNO);
-        Productos p3 = new Productos("Ensalada César",
-                Categorias.BEBIDAS, Subcategorias.REFRESCOS,
-                2.50, IVA.VENTIUNO);
-        ArrayList<Productos> refrescos = new ArrayList<>();
-        refrescos.add(p1);
-        refrescos.add(p2);
-        refrescos.add(p3);
-        return refrescos;
-    }
-
-    public static ArrayList<Productos> alcoholes() {
-        Productos p1 = new Productos("Blue Label",
-                Categorias.BEBIDAS, Subcategorias.REFRESCOS,
-                30.00, IVA.VENTIUNO);
-        Productos p2 = new Productos("Double Black Label",
-                Categorias.BEBIDAS, Subcategorias.REFRESCOS,
-                15.00, IVA.VENTIUNO);
-        Productos p3 = new Productos("Red Label",
-                Categorias.BEBIDAS, Subcategorias.REFRESCOS,
-                12.00, IVA.VENTIUNO);
-        ArrayList<Productos> alcohol = new ArrayList<>();
-        alcohol.add(p1);
-        alcohol.add(p2);
-        alcohol.add(p3);
-        return alcohol;
-    }
-
-    public static ArrayList<Productos> cafesInfusiones() {
-        Productos p1 = new Productos("Té de Menta",
-                Categorias.BEBIDAS, Subcategorias.REFRESCOS,
-                2.50, IVA.DIEZ);
-        Productos p2 = new Productos("Café Soló",
-                Categorias.BEBIDAS, Subcategorias.REFRESCOS,
-                2.50, IVA.DIEZ);
-        Productos p3 = new Productos("Café con Leche",
-                Categorias.BEBIDAS, Subcategorias.REFRESCOS,
-                2.50, IVA.DIEZ);
-        ArrayList<Productos> refrescos = new ArrayList<>();
-        refrescos.add(p1);
-        refrescos.add(p2);
-        refrescos.add(p3);
-        return refrescos;
+    public static int mostrarArray(ArrayList<Productos> mostrar, Categorias c,
+            Subcategorias sc) {
+        String texto = "";
+        for (Productos productos : mostrar) {
+            if (productos.getCategoria() == c && productos.getSc() == sc) {
+                texto += productos + "\n";
+            }
+        }
+        int posicion = Integer.parseInt(JOptionPane.showInputDialog(texto));
+        return posicion;
     }
 
     public static String mostrarArray(ArrayList<Productos> mostrar) {
         String texto = "";
-        for (int i = 0; i < mostrar.size(); i++) {
-            texto += mostrar.get(i) + "\n";
+        for (Productos productos : mostrar) {
+            texto += productos + "\n";
         }
-        JOptionPane.showInputDialog(texto);
+        JOptionPane.showMessageDialog(null, texto);
         return texto;
     }
 
@@ -145,8 +114,8 @@ public class MetodosDeClases {
         return seleccionComida;
     }
 
-    public static void CartaComidas(ArrayList<Productos> carnes,
-            ArrayList<Productos> ensaladas, ArrayList<Productos> pescados) {
+    public static int cartaComidas(ArrayList<Productos> menu) {
+        int posicion = 0;
         Object menuComida = JOptionPane.showInputDialog(null,
                 "¿Qué te apetece?",
                 "Menú", JOptionPane.QUESTION_MESSAGE, null,
@@ -155,21 +124,25 @@ public class MetodosDeClases {
         String seleccionComida = menuComida.toString();
         switch (seleccionComida) {
             case "Carnes" -> {
-                mostrarArray(carnes);
+                posicion = mostrarArray(menu, Categorias.COMIDAS,
+                        Subcategorias.CARNES);
             }
 
             case "Ensaladas" -> {
-                mostrarArray(ensaladas);
+                posicion = mostrarArray(menu, Categorias.COMIDAS,
+                        Subcategorias.ENSALADAS);
             }
 
             case "Pescados" -> {
-                mostrarArray(pescados);
+                posicion = mostrarArray(menu, Categorias.COMIDAS,
+                        Subcategorias.PESCADOS);
             }
         }
+        return posicion;
     }
 
-    public static void CartaBebidas(ArrayList<Productos> refrescos,
-            ArrayList<Productos> alcohol, ArrayList<Productos> cafes) {
+    public static int cartaBebidas(ArrayList<Productos> menu) {
+        int posicion = 0;
         Object menuBebidas = JOptionPane.showInputDialog(null,
                 "¿Qué te apetece?",
                 "Menú", JOptionPane.QUESTION_MESSAGE, null,
@@ -178,16 +151,37 @@ public class MetodosDeClases {
         String seleccionBebida = menuBebidas.toString();
         switch (seleccionBebida) {
             case "Refrescos" -> {
-                mostrarArray(refrescos);
+                posicion = mostrarArray(menu, Categorias.BEBIDAS,
+                        Subcategorias.REFRESCOS);
             }
 
             case "Bebidas Alcohólicas" -> {
-                mostrarArray(alcohol);
+                posicion = mostrarArray(menu, Categorias.BEBIDAS,
+                        Subcategorias.ALCOHOL);
             }
 
             case "Cafés y Infusiones" -> {
-                mostrarArray(cafes);
+                posicion = mostrarArray(menu, Categorias.BEBIDAS,
+                        Subcategorias.CAFES);
             }
         }
+        return posicion;
+    }
+
+    public static ArrayList<Productos> carrito(ArrayList<Productos> menu,
+            int posicion) {
+        ArrayList<Productos> carrito = new ArrayList<>();
+        // Preguntar al usuario la cantidad
+        int cantidad = Integer.parseInt(JOptionPane.showInputDialog(
+                "Ingrese la cantidad que desea para " + menu.get(posicion).getDescripcion()));
+        // Verificar si hay suficiente stock
+        if (cantidad <= menu.get(posicion).getStock()) {
+            // Agregar al carrito con la cantidad especificada
+            carrito.add(menu.get(posicion));
+            JOptionPane.showMessageDialog(null, "Producto agregado al carrito.");
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay suficiente stock para la cantidad deseada.");
+        }
+        return carrito;
     }
 }
