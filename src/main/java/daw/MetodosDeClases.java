@@ -77,7 +77,9 @@ public class MetodosDeClases {
         String texto = "";
         for (Productos productos : mostrar) {
             if (productos.getCategoria() == c && productos.getSc() == sc) {
-                texto += productos + "\n";
+                texto += "Nº de Carta " + productos.getId() + ", Nom Producto "
+                        + productos.getDescripcion()
+                        + ", Precio " + productos.getPrecio() + "€\n";
             }
         }
         int posicion = Integer.parseInt(JOptionPane.showInputDialog(texto));
@@ -87,7 +89,9 @@ public class MetodosDeClases {
     public static String mostrarArray(ArrayList<Productos> mostrar) {
         String texto = "";
         for (Productos productos : mostrar) {
-            texto += productos + "\n";
+            texto += "Nom Producto "
+                    + productos.getDescripcion()
+                    + ", Precio " + productos.getPrecio() + "€\n";
         }
         JOptionPane.showMessageDialog(null, texto);
         return texto;
@@ -98,20 +102,20 @@ public class MetodosDeClases {
                 "Seleccione una opcion",
                 "Modos TPV", JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null,
-                new Object[]{"Modo Usuario", "Modo Administrador"},
+                new Object[]{"Modo Usuario", "Modo Administrador", "Salir"},
                 "Modo Usuario");
         return seleccionMenu;
     }
 
-    public static String menuComida() {
-        Object menuComida = JOptionPane.showInputDialog(null,
+    public static int menuComida() {
+        int menuComida = JOptionPane.showOptionDialog(null,
                 "Seleccione Una Opción",
-                "Menú", JOptionPane.QUESTION_MESSAGE, null,
+                "Menú", JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null,
                 new Object[]{"Carta Comidas", "Cartas Bebidas", "Cartas Postres",
-                    "Carrito"},
+                    "Carrito", "Salir"},
                 "Seleccione");
-        String seleccionComida = menuComida.toString();
-        return seleccionComida;
+        return menuComida;
     }
 
     public static int cartaComidas(ArrayList<Productos> menu) {
@@ -169,8 +173,7 @@ public class MetodosDeClases {
     }
 
     public static ArrayList<Productos> carrito(ArrayList<Productos> menu,
-            int posicion) {
-        ArrayList<Productos> carrito = new ArrayList<>();
+            ArrayList<Productos> carrito, int posicion) {
         // Preguntar al usuario la cantidad
         int cantidad = Integer.parseInt(JOptionPane.showInputDialog(
                 "Ingrese la cantidad que desea para " + menu.get(posicion).getDescripcion()));

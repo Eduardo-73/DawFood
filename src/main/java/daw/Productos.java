@@ -21,7 +21,7 @@ public class Productos {
     private double precio;
     private IVA iva;
     private int stock;
-    private static int contador = 1;
+    private static int contador = 0;
 
     // Constructor
     public Productos(String descripcion, Categorias categoria, Subcategorias sc,
@@ -92,7 +92,6 @@ public class Productos {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Número Carta = ").append(id);
         sb.append(", Descripción = ").append(descripcion);
         sb.append(", Precio = ").append(precio);
         sb.append(", Precio con IVA = ").append(iva);

@@ -1,7 +1,5 @@
-daw\Subcategorias.class
-daw\DawFood.class
-daw\IVA.class
-daw\Menu.class
-daw\Productos.class
-daw\MetodosDeClases.class
-daw\Categorias.class
+daw/Menu.class
+daw/IVA.class
+daw/Subcategorias.class
+daw/Categorias.class
+daw/MetodosDeClases.class

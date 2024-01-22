@@ -14,8 +14,7 @@ import javax.swing.JOptionPane;
 public class DawFood {
 
     public static void main(String[] args) {
-        int menu, posicion = 0;
-        String menuCarta;
+        int menu, posicion = 0, menuCarta;
         ArrayList<Productos> menuTPV = MetodosDeClases.cartaTPV();
         ArrayList<Productos> carrito = new ArrayList<>();
 
@@ -26,32 +25,32 @@ public class DawFood {
                     do {
                         menuCarta = MetodosDeClases.menuComida();
                         switch (menuCarta) {
-                            case "Carta Comidas" -> {
+                            case 0 -> {
                                 posicion = MetodosDeClases.cartaComidas(menuTPV);
-                                carrito = MetodosDeClases.carrito(menuTPV, posicion);
+                                MetodosDeClases.carrito(menuTPV, carrito, posicion);
                             }
 
-                            case "Cartas Bebidas" -> {
+                            case 1 -> {
                                 posicion = MetodosDeClases.cartaBebidas(menuTPV);
-                                carrito = MetodosDeClases.carrito(menuTPV, posicion);
+                                MetodosDeClases.carrito(menuTPV, carrito, posicion);
                             }
 
-                            case "Cartas Postres" -> {
+                            case 2 -> {
 
                             }
 
-                            case "Carrito" -> {
+                            case 3 -> {
                                 MetodosDeClases.mostrarArray(carrito);
                             }
 
                         }
-                    } while (true);
+                    } while (!(menuCarta == 4));
                 }
 
                 case 1 -> {
 
                 }
             }
-        } while (true);
+        } while (!(menu == 2));
     }
 }
