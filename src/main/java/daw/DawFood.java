@@ -14,9 +14,10 @@ import javax.swing.JOptionPane;
 public class DawFood {
 
     public static void main(String[] args) {
-        int menu, posicion = 0, menuCarta;
+        int menu, posicion = 0, menuCarta, pago;
         ArrayList<Productos> menuTPV = MetodosDeClases.cartaTPV();
         ArrayList<Productos> carrito = new ArrayList<>();
+        Tarjeta t1 = new Tarjeta("Eduardo", 1000.00);
 
         do {
             menu = MetodosDeClases.menuModos();
@@ -40,7 +41,18 @@ public class DawFood {
                             }
 
                             case 3 -> {
-                                MetodosDeClases.mostrarArray(carrito);
+                                pago = MetodosDeClases.mostrarCarrito(carrito);
+                                switch (pago) {
+                                    case 0 -> {
+                                        MetodosDeClases.ticket(carrito, t1);
+                                    }
+                                    case 1 -> {
+
+                                    }
+                                    case 2 -> {
+                                        break;
+                                    }
+                                }
                             }
 
                         }

@@ -77,24 +77,29 @@ public class MetodosDeClases {
         String texto = "";
         for (Productos productos : mostrar) {
             if (productos.getCategoria() == c && productos.getSc() == sc) {
-                texto += "Nº de Carta " + productos.getId() + ", Nom Producto "
+                texto += "Nº de Carta " + productos.getId() + ", Producto "
                         + productos.getDescripcion()
-                        + ", Precio " + productos.getPrecio() + "€\n";
+                        + ", Precio " + productos.getPrecio() + "€ Stock "
+                        + productos.getStock() + "\n";
             }
         }
         int posicion = Integer.parseInt(JOptionPane.showInputDialog(texto));
         return posicion;
     }
 
-    public static String mostrarArray(ArrayList<Productos> mostrar) {
+    public static int mostrarCarrito(ArrayList<Productos> mostrar) {
         String texto = "";
         for (Productos productos : mostrar) {
-            texto += "Nom Producto "
+            texto += "Cantidad " + productos.getStock() + " Producto "
                     + productos.getDescripcion()
                     + ", Precio " + productos.getPrecio() + "€\n";
         }
-        JOptionPane.showMessageDialog(null, texto);
-        return texto;
+        int pago = JOptionPane.showOptionDialog(null,
+                texto, "Pago", JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null,
+                new Object[]{"Pagar", "No comprar", "Segui Comprando"},
+                "Modo Usuario");
+        return pago;
     }
 
     public static int menuModos() {
@@ -172,7 +177,7 @@ public class MetodosDeClases {
         return posicion;
     }
 
-    public static ArrayList<Productos> carrito(ArrayList<Productos> menu,
+    public static void carrito(ArrayList<Productos> menu,
             ArrayList<Productos> carrito, int posicion) {
         // Preguntar al usuario la cantidad
         int cantidad = Integer.parseInt(JOptionPane.showInputDialog(
@@ -180,11 +185,56 @@ public class MetodosDeClases {
         // Verificar si hay suficiente stock
         if (cantidad <= menu.get(posicion).getStock()) {
             // Agregar al carrito con la cantidad especificada
-            carrito.add(menu.get(posicion));
+            Productos prodCarrito = new Productos(
+                    menu.get(posicion).getDescripcion(),
+                    menu.get(posicion).getCategoria(),
+                    menu.get(posicion).getSc(),
+                    menu.get(posicion).getPrecio(),
+                    menu.get(posicion).getIva());
+            double nuevoPrecio = menu.get(posicion).getPrecio() * cantidad;
+            prodCarrito.setPrecio(nuevoPrecio);
+            prodCarrito.setStock(cantidad);
+            carrito.add(prodCarrito);
             JOptionPane.showMessageDialog(null, "Producto agregado al carrito.");
         } else {
             JOptionPane.showMessageDialog(null, "No hay suficiente stock para la cantidad deseada.");
         }
-        return carrito;
+        int nuevoStock = menu.get(posicion).getStock() - cantidad;
+        menu.get(posicion).setStock(nuevoStock);
+    }
+
+    public static void ticket(ArrayList<Productos> array, Tarjeta credito) {
+        System.out.println("CVV: " + credito.getCVV());
+        System.out.println("PAN: " + credito.getPAN());
+        int numCVVCliente = 0;
+        double precioFinal = 0, restarSaldo;
+        for (Productos productos : array) {
+            precioFinal += productos.getPrecio();
+        }
+        System.out.println(precioFinal);
+        do {
+            numCVVCliente = Integer.parseInt(JOptionPane.showInputDialog(
+                    "Introduce el CVV de tu tarjeta "));
+            if (numCVVCliente == credito.getCVV()) {
+                JOptionPane.showMessageDialog(null,
+                        "CVV Correcto ");
+                if (credito.getSaldo() > precioFinal) {
+                    restarSaldo = credito.getSaldo() - precioFinal;
+                    credito.setSaldo(restarSaldo);
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            "No tienes saldo sufiente ");
+                    break;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null,
+                        "CVV erroneo ");
+            }
+        } while (numCVVCliente != credito.getCVV());
+    }
+
+    private void mostrarTicket(ArrayList<Productos> carrito, Tarjeta credito,
+            double precioFinal) {
+        
     }
 }
