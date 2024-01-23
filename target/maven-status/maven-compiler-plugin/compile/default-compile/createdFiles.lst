@@ -1,6 +1,2 @@
-daw\Subcategorias.class
-daw\IVA.class
-daw\Menu.class
-daw\MetodosDeClases.class
-daw\Categorias.class
-daw\Tarjeta.class
+daw/Ticket.class
+daw/Tarjeta.class
