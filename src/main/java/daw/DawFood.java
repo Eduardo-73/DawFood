@@ -37,24 +37,30 @@ public class DawFood {
                             }
 
                             case 2 -> {
-
+                                posicion = MetodosDeClases.mostrarArray(menuTPV,
+                                        Categorias.POSTRES, Subcategorias.POSTRES);
+                                MetodosDeClases.carrito(menuTPV, carrito, posicion);
                             }
 
                             case 3 -> {
-                                pago = MetodosDeClases.mostrarCarrito(carrito);
-                                switch (pago) {
-                                    case 0 -> {
-                                        MetodosDeClases.ticket(carrito, t1);
-                                    }
-                                    case 1 -> {
-
-                                    }
-                                    case 2 -> {
-                                        break;
+                                if (carrito.isEmpty()) {
+                                    JOptionPane.showMessageDialog(null,
+                                            "No hay nada en el Carrito ");
+                                } else {
+                                    pago = MetodosDeClases.mostrarCarrito(carrito);
+                                    switch (pago) {
+                                        case 0 -> {
+                                            MetodosDeClases.ticket(carrito, t1);
+                                        }
+                                        case 1 -> {
+                                            MetodosDeClases.noComprar(carrito);
+                                        }
+                                        case 2 -> {
+                                            break;
+                                        }
                                     }
                                 }
                             }
-
                         }
                     } while (!(menuCarta == 4));
                 }

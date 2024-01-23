@@ -4,6 +4,9 @@
  */
 package daw;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -69,6 +72,15 @@ public class MetodosDeClases {
         menu.add(new Productos("Café con Leche",
                 Categorias.BEBIDAS, Subcategorias.CAFES,
                 2.50, IVA.DIEZ));
+        menu.add(new Productos("Tarta de Queso",
+                Categorias.POSTRES, Subcategorias.POSTRES,
+                6.00, IVA.DIEZ));
+        menu.add(new Productos("Flan de Huevo",
+                Categorias.POSTRES, Subcategorias.POSTRES,
+                6.00, IVA.DIEZ));
+        menu.add(new Productos("Leche frita",
+                Categorias.POSTRES, Subcategorias.POSTRES,
+                6.00, IVA.DIEZ));
         return menu;
     }
 
@@ -79,7 +91,7 @@ public class MetodosDeClases {
             if (productos.getCategoria() == c && productos.getSc() == sc) {
                 texto += "Nº de Carta " + productos.getId() + ", Producto "
                         + productos.getDescripcion()
-                        + ", Precio " + productos.getPrecio() + "€ Stock "
+                        + ", Precio " + productos.getPrecio() + "€, Stock "
                         + productos.getStock() + "\n";
             }
         }
@@ -89,8 +101,12 @@ public class MetodosDeClases {
 
     public static int mostrarCarrito(ArrayList<Productos> mostrar) {
         String texto = "";
+        if (mostrar.isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "No hay nada en el Carrito ");
+        }
         for (Productos productos : mostrar) {
-            texto += "Cantidad " + productos.getStock() + " Producto "
+            texto += "Cantidad " + productos.getStock() + ", Producto "
                     + productos.getDescripcion()
                     + ", Precio " + productos.getPrecio() + "€\n";
         }
@@ -212,6 +228,7 @@ public class MetodosDeClases {
             precioFinal += productos.getPrecio();
         }
         System.out.println(precioFinal);
+        Ticket t1 = new Ticket(precioFinal, array);
         do {
             numCVVCliente = Integer.parseInt(JOptionPane.showInputDialog(
                     "Introduce el CVV de tu tarjeta "));
@@ -221,6 +238,8 @@ public class MetodosDeClases {
                 if (credito.getSaldo() > precioFinal) {
                     restarSaldo = credito.getSaldo() - precioFinal;
                     credito.setSaldo(restarSaldo);
+                    JOptionPane.showMessageDialog(null,
+                            t1);
                 } else {
                     JOptionPane.showMessageDialog(null,
                             "No tienes saldo sufiente ");
@@ -233,8 +252,8 @@ public class MetodosDeClases {
         } while (numCVVCliente != credito.getCVV());
     }
 
-    private void mostrarTicket(ArrayList<Productos> carrito, Tarjeta credito,
-            double precioFinal) {
-        
+    public static void noComprar(ArrayList<Productos> array) {
+        array.removeAll(array);
     }
+
 }

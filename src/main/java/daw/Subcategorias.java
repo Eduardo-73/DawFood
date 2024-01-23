@@ -15,7 +15,8 @@ public enum Subcategorias {
     PESCADOS("Pescados "),
     REFRESCOS("Bebidas con Gas "),
     ALCOHOL("Bebidas alcohólicas"),
-    CAFES("Cafes e Infusiones ");
+    CAFES("Cafes e Infusiones "),
+    POSTRES("Postres Caseros");
     
     String valorCategoria;
 

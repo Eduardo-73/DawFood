@@ -10,8 +10,8 @@ package daw;
  */
 public enum IVA {
 
-    VENTIUNO(0.21),
-    DIEZ(0.10);
+    VENTIUNO(1.21),
+    DIEZ(1.10);
 
     double valor;
 
