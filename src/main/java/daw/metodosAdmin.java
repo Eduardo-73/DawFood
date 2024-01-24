@@ -14,6 +14,38 @@ import javax.swing.JOptionPane;
  */
 public class metodosAdmin {
 
+    public static int mostrarAcciones() {
+        int seleccion = JOptionPane.showOptionDialog(null,
+                "Seleccione una acción de admin",
+                "Modo Administrador", JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null,
+                new Object[]{"Añadir Producto", "Editar Producto", "Eliminar Producto"},
+                "Comidas");
+
+        return seleccion;
+    }
+
+    public static boolean introducirContraseña() {
+        String contraseña2 = generarPasswd();
+        boolean acceder = true;
+        for (int i = 0; i < 3; i++) {
+            String contraseña = JOptionPane.showInputDialog(null,
+                    "Introduce la contraseña", "Verificación de contraseña",
+                    JOptionPane.QUESTION_MESSAGE);
+            int intento = i + 1;
+            if (contraseña.equals(contraseña2)) {
+                JOptionPane.showMessageDialog(null, "Contraseña correcta ", contraseña, 1);
+                acceder = true;
+                break;
+            } else {
+                JOptionPane.showMessageDialog(null, "Contraseña erronea " + " intento " + intento + "/3", contraseña, 0);
+                acceder = false;
+            }
+        }
+        
+        return acceder;
+    }
+
     public static String generarPasswd() {
         Random random = new Random();
         String minus = "abcdefghijklmnñopqrstuvwxyz";
@@ -28,7 +60,7 @@ public class metodosAdmin {
             char letra = suma.charAt(pos);
             contraseña.append(letra);
         }
-
+        System.out.println(contraseña);
         return contraseña.toString();
     }
 
@@ -101,18 +133,13 @@ public class metodosAdmin {
         menu.add(new Productos(desc, cat, sub, precio, iva));
     }
 
-    public static void cambiarProductoComida(ArrayList<Productos> menu) {
-
-    }
-
-    public static void main(String[] args) {
-        ArrayList<Productos> menuTPV = MetodosDeClases.cartaTPV();
+    public static void editarProducto(ArrayList<Productos> menuTPV) {
         int posicion = 0;
-         Categorias categoria;
-        //selccion de producto
+        Categorias categoria;
+        //seleccion de producto
         int seleccion = JOptionPane.showOptionDialog(null,
                 "Seleccione una opcion",
-                "Elccion producto a cambiar", JOptionPane.YES_NO_CANCEL_OPTION,
+                "Eleccion producto a cambiar", JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null,
                 new Object[]{"Comidas", "Bebidas", "Postres"},
                 "Comidas");
@@ -129,7 +156,7 @@ public class metodosAdmin {
                         Categorias.POSTRES, Subcategorias.POSTRES);
             }
         }
-        //Selccion de campo que quieres que cambiar del producto anterirmente seleccionado
+        //Seleccion de campo que quieres que cambiar del producto anterirmente seleccionado
         int campoCambiar = JOptionPane.showOptionDialog(null,
                 "Seleccione una opcion para cambiar",
                 "Eleccion campo a cambiar", JOptionPane.YES_NO_CANCEL_OPTION,
@@ -156,35 +183,59 @@ public class metodosAdmin {
                 } while (repetir);
                 menuTPV.get(posicion).setPrecio(precio);
             }
-            
+
             case 2 -> {
                 categoria = (Categorias) JOptionPane.showInputDialog(
-                null, "Seleccione la nueva categoría",
-                "Elección categoría", JOptionPane.PLAIN_MESSAGE,
-                null, Categorias.values(),
-                Categorias.COMIDAS);
+                        null, "Seleccione la nueva categoría",
+                        "Elección categoría", JOptionPane.PLAIN_MESSAGE,
+                        null, Categorias.values(),
+                        Categorias.COMIDAS);
                 menuTPV.get(posicion).setCategoria(categoria);
             }
-            
+
             case 3 -> {
                 Subcategorias subcategoria = (Subcategorias) JOptionPane.showInputDialog(
-                null, "Seleccione la nueva subcategoria",
-                "Elección categoría", JOptionPane.PLAIN_MESSAGE,
-                null, Subcategorias.values(),
-                Subcategorias.ALCOHOL);
+                        null, "Seleccione la nueva subcategoria",
+                        "Elección subcategoria", JOptionPane.PLAIN_MESSAGE,
+                        null, Subcategorias.values(),
+                        Subcategorias.ALCOHOL);
                 menuTPV.get(posicion).setSc(subcategoria);
             }
-            
+
             case 4 -> {
                 IVA iva = (IVA) JOptionPane.showInputDialog(
-                null, "Seleccione la nueva subcategoria",
-                "Elección categoría", JOptionPane.PLAIN_MESSAGE,
-                null, IVA.values(),
-                IVA.DIEZ);
+                        null, "Seleccione el nuevo Iva",
+                        "Elección iva", JOptionPane.PLAIN_MESSAGE,
+                        null, IVA.values(),
+                        IVA.DIEZ);
                 menuTPV.get(posicion).setIva(iva);
             }
         }
+    }
 
-        menuTPV.forEach(System.out::println);
+    public static void eliminarProducto(ArrayList<Productos> menuTPV) {
+        int posicion = 0;
+        //seleccion de producto
+        int seleccion = JOptionPane.showOptionDialog(null,
+                "Seleccione una opcion",
+                "Eleccion producto a eliminar", JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null,
+                new Object[]{"Comidas", "Bebidas", "Postres"},
+                "Comidas");
+
+        switch (seleccion) {
+            case 0 -> {
+                posicion = MetodosDeClases.cartaComidas(menuTPV);
+            }
+            case 1 -> {
+                posicion = MetodosDeClases.cartaBebidas(menuTPV);
+            }
+            case 2 -> {
+                posicion = MetodosDeClases.mostrarArray(menuTPV,
+                        Categorias.POSTRES, Subcategorias.POSTRES);
+            }
+        }
+        //Eliminar producto
+        menuTPV.remove(posicion);
     }
 }

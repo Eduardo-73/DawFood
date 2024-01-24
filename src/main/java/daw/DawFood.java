@@ -66,9 +66,27 @@ public class DawFood {
                 }
 
                 case 1 -> {
-
+                    boolean contraseña = metodosAdmin.introducirContraseña();
+                    int accion = metodosAdmin.mostrarAcciones();
+                    switch(accion){
+                        case 0 -> {
+                            metodosAdmin.añadirProducto(menuTPV);
+                        }
+                        
+                        case 1 -> {
+                            metodosAdmin.editarProducto(menuTPV);
+                        }
+                        
+                        case 2 -> {
+                            metodosAdmin.eliminarProducto(menuTPV);
+                        }
+                        
+                        case 3 -> {
+                            
+                        }
+                    }
                 }
             }
         } while (!(menu == 2));
-    }
+    } 
 }
