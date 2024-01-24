@@ -90,19 +90,18 @@ public class Ticket {
         StringBuilder sb = new StringBuilder();
         String prod = "";
         for (Productos productos : lista) {
-            prod += " " + productos.getStock() + " " + productos.getDescripcion()
-                    + " " + productos.getPrecio() + "\n";
+            prod += " " + productos.getStock() + " ---- " + productos.getDescripcion()
+                    + " ---- " + (productos.getPrecio() * productos.getIva().valor) + "€\n";
         }
-
+        String precioTotalFormateado = String.format("%.2f", precioTotal);
         String txt = "-------------------------------------------------------------------------------------\n"
                 + "                                     DawFood\n"
                 + "Turno: " + turno + "\n"
-                + "Fecha:\t" + fecha + " Hora: " + hora.getHour() + ":" + hora.getMinute() + "\n"
-                + "-------------------------------------------------------------------------------------"
-                + "\nCantidad     Producto     Precio\n"
-                + prod + "\n"
+                + "Fecha: " + fecha + " Hora: " + hora.getHour() + ":" + hora.getMinute() + "\n"
+                + "-------------------------------------------------------------------------------------\n"
+                + prod
                 + "--------------------------------------------------------------------------------------\n"
-                + "Precio Total: " + precioTotal + "€" + "\n"
+                + "Precio Total: " + precioTotalFormateado + "€" + "\n"
                 + "--------------------------------------------------------------------------------------\n";
         sb.append(txt);
         return sb.toString();

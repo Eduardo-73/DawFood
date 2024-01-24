@@ -4,6 +4,7 @@
  */
 package daw;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -86,29 +87,47 @@ public class MetodosDeClases {
 
     public static int mostrarArray(ArrayList<Productos> mostrar, Categorias c,
             Subcategorias sc) {
-        String texto = "";
+        String[] texto = new String[mostrar.size()];
+        int contador = 0;
         for (Productos productos : mostrar) {
             if (productos.getCategoria() == c && productos.getSc() == sc) {
-                texto += "Nº de Carta " + productos.getId() + ", Producto "
+                texto[contador++] = "Nº de Carta " + productos.getId() + ", Producto "
                         + productos.getDescripcion()
                         + ", Precio " + productos.getPrecio() + "€, Stock "
-                        + productos.getStock() + "\n";
+                        + productos.getStock();
             }
         }
-        int posicion = Integer.parseInt(JOptionPane.showInputDialog(texto));
-        return posicion;
+        String seleccion = (String) JOptionPane.showInputDialog(
+                null,
+                "Selecciona un producto",
+                "Menú",
+                JOptionPane.QUESTION_MESSAGE,
+                null, texto,
+                texto[0]);
+        int idSeleccionada = -1;
+        for (Productos producto : mostrar) {
+            if (seleccion.contains(String.valueOf(producto.getId()))) {
+                idSeleccionada = producto.getId();
+                break;
+            }
+        }
+        return idSeleccionada;
     }
 
     public static int mostrarCarrito(ArrayList<Productos> mostrar) {
         String texto = "";
+        DecimalFormat df = new DecimalFormat("#,##");
         if (mostrar.isEmpty()) {
             JOptionPane.showMessageDialog(null,
                     "No hay nada en el Carrito ");
         }
         for (Productos productos : mostrar) {
+            double precioIVA = productos.getPrecio() * productos.getIva().valor;
+            String precioIVAF = df.format(precioIVA);
             texto += "Cantidad " + productos.getStock() + ", Producto "
                     + productos.getDescripcion()
-                    + ", Precio " + productos.getPrecio() + "€\n";
+                    + ", Precio " + productos.getPrecio() + "€, Precio con IVA "
+                    + precioIVAF + "€\n";
         }
         int pago = JOptionPane.showOptionDialog(null,
                 texto, "Pago", JOptionPane.YES_NO_CANCEL_OPTION,
@@ -195,9 +214,20 @@ public class MetodosDeClases {
 
     public static void carrito(ArrayList<Productos> menu,
             ArrayList<Productos> carrito, int posicion) {
+        int cantidad = 0;
+        boolean repetir = true;
         // Preguntar al usuario la cantidad
-        int cantidad = Integer.parseInt(JOptionPane.showInputDialog(
-                "Ingrese la cantidad que desea para " + menu.get(posicion).getDescripcion()));
+        do {
+            try {
+                cantidad = Integer.parseInt(JOptionPane.showInputDialog(
+                        "Ingrese la cantidad que desea para " + menu.get(posicion).getDescripcion()));
+                repetir = false;
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null,
+                        "Introduce los datos correctos", "Información",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        } while (repetir);
         // Verificar si hay suficiente stock
         if (cantidad <= menu.get(posicion).getStock()) {
             // Agregar al carrito con la cantidad especificada
@@ -211,9 +241,11 @@ public class MetodosDeClases {
             prodCarrito.setPrecio(nuevoPrecio);
             prodCarrito.setStock(cantidad);
             carrito.add(prodCarrito);
-            JOptionPane.showMessageDialog(null, "Producto agregado al carrito.");
+            JOptionPane.showMessageDialog(null, "Producto agregado al carrito.",
+                    "", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "No hay suficiente stock para la cantidad deseada.");
+            JOptionPane.showMessageDialog(null, "No hay suficiente stock para la cantidad deseada.",
+                    "", JOptionPane.ERROR_MESSAGE);
         }
         int nuevoStock = menu.get(posicion).getStock() - cantidad;
         menu.get(posicion).setStock(nuevoStock);
@@ -225,7 +257,7 @@ public class MetodosDeClases {
         int numCVVCliente = 0;
         double precioFinal = 0, restarSaldo;
         for (Productos productos : array) {
-            precioFinal += productos.getPrecio();
+            precioFinal += productos.getPrecio() * productos.getIva().valor;
         }
         System.out.println(precioFinal);
         Ticket t1 = new Ticket(precioFinal, array);
@@ -253,6 +285,8 @@ public class MetodosDeClases {
     }
 
     public static void noComprar(ArrayList<Productos> array) {
+        JOptionPane.showMessageDialog(null, "Se van a "
+                + "eliminar todos los productos del Carrito ");
         array.removeAll(array);
     }
 

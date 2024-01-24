@@ -4,6 +4,7 @@
  */
 package daw;
 
+import java.text.DecimalFormat;
 import java.util.Random;
 
 /**
@@ -92,9 +93,9 @@ public class Productos {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        DecimalFormat df = new DecimalFormat("#,##");
         sb.append(", Descripción = ").append(descripcion);
-        sb.append(", Precio = ").append(precio);
-        sb.append(", Precio con IVA = ").append(iva);
+        sb.append(", Precio = ").append(df.format(precio));
         sb.append(", Stock = ").append(stock);
         return sb.toString();
     }
