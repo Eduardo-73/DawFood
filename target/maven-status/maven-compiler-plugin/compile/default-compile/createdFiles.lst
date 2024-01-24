@@ -1,2 +1,9 @@
-daw/Ticket.class
-daw/Tarjeta.class
+daw\Subcategorias.class
+daw\metodosAdmin.class
+daw\IVA.class
+daw\Menu.class
+daw\MetodosDeClases.class
+daw\Ticket.class
+daw\Categorias.class
+daw\InfoTPV.class
+daw\Tarjeta.class
