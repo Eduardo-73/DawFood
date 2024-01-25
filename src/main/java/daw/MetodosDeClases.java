@@ -91,10 +91,9 @@ public class MetodosDeClases {
         int contador = 0;
         for (Productos productos : mostrar) {
             if (productos.getCategoria() == c && productos.getSc() == sc) {
-                texto[contador++] = "Nº de Carta " + productos.getId() + ", Producto "
+                texto[contador++] = "Nº de Carta /" + productos.getId() + "/ Producto: /"
                         + productos.getDescripcion()
-                        + ", Precio " + productos.getPrecio() + "€, Stock "
-                        + productos.getStock();
+                        + "/ Precio: /" + productos.getPrecio() + "€/";
             }
         }
         String seleccion = (String) JOptionPane.showInputDialog(
@@ -104,9 +103,11 @@ public class MetodosDeClases {
                 JOptionPane.QUESTION_MESSAGE,
                 null, texto,
                 texto[0]);
-        int idSeleccionada = -1;
+        String[] partes = seleccion.split("/");
+        String parteDes = partes[3];
+        int idSeleccionada = 0;
         for (Productos producto : mostrar) {
-            if (seleccion.contains(String.valueOf(producto.getId()))) {
+            if (parteDes.equals(producto.getDescripcion())) {
                 idSeleccionada = producto.getId();
                 break;
             }
@@ -123,7 +124,7 @@ public class MetodosDeClases {
         }
         for (Productos productos : mostrar) {
             double precioIVA = productos.getPrecio() * productos.getIva().valor;
-            String precioIVAF = df.format(precioIVA);
+            String precioIVAF = String.format("%.2f", precioIVA);
             texto += "Cantidad " + productos.getStock() + ", Producto "
                     + productos.getDescripcion()
                     + ", Precio " + productos.getPrecio() + "€, Precio con IVA "
