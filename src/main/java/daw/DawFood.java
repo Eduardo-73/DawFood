@@ -17,6 +17,7 @@ public class DawFood {
         int menu, posicion = 0, menuCarta, pago;
         ArrayList<Productos> menuTPV = MetodosDeClases.cartaTPV();
         ArrayList<Productos> carrito = new ArrayList<>();
+        ArrayList<Ticket> tickets = new ArrayList<>();
         Tarjeta t1 = new Tarjeta("Eduardo", 1000.00);
 
         do {
@@ -50,7 +51,7 @@ public class DawFood {
                                     pago = MetodosDeClases.mostrarCarrito(carrito);
                                     switch (pago) {
                                         case 0 -> {
-                                            MetodosDeClases.ticket(carrito, t1);
+                                            MetodosDeClases.ticket(carrito, t1, tickets);
                                         }
                                         case 1 -> {
                                             MetodosDeClases.noComprar(carrito);
@@ -82,7 +83,7 @@ public class DawFood {
                         }
                         
                         case 3 -> {
-                            
+                           metodosAdmin.comprobarVentas(tickets);
                         }
                     }
                 }

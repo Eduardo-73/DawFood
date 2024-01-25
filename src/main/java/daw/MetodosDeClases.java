@@ -251,7 +251,7 @@ public class MetodosDeClases {
         menu.get(posicion).setStock(nuevoStock);
     }
 
-    public static void ticket(ArrayList<Productos> array, Tarjeta credito) {
+    public static void ticket(ArrayList<Productos> array, Tarjeta credito, ArrayList<Ticket> ticket) {
         System.out.println("CVV: " + credito.getCVV());
         System.out.println("PAN: " + credito.getPAN());
         int numCVVCliente = 0;
@@ -272,6 +272,7 @@ public class MetodosDeClases {
                     credito.setSaldo(restarSaldo);
                     JOptionPane.showMessageDialog(null,
                             t1);
+                    ticket.add(t1);
                 } else {
                     JOptionPane.showMessageDialog(null,
                             "No tienes saldo sufiente ");

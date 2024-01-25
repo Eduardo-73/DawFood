@@ -4,6 +4,7 @@
  */
 package daw;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JOptionPane;
@@ -19,7 +20,7 @@ public class metodosAdmin {
                 "Seleccione una acción de admin",
                 "Modo Administrador", JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null,
-                new Object[]{"Añadir Producto", "Editar Producto", "Eliminar Producto"},
+                new Object[]{"Añadir Producto", "Editar Producto", "Eliminar Producto", "Comprobar ventas"},
                 "Comidas");
 
         return seleccion;
@@ -42,7 +43,7 @@ public class metodosAdmin {
                 acceder = false;
             }
         }
-        
+
         return acceder;
     }
 
@@ -60,6 +61,7 @@ public class metodosAdmin {
             char letra = suma.charAt(pos);
             contraseña.append(letra);
         }
+
         System.out.println(contraseña);
         return contraseña.toString();
     }
@@ -237,5 +239,78 @@ public class metodosAdmin {
         }
         //Eliminar producto
         menuTPV.remove(posicion);
+    }
+
+    public static void comprobarVentas(ArrayList<Ticket> ventas) {
+         int seleccion = JOptionPane.showOptionDialog(null,
+                "Seleccione que quires comprobar",
+                "Ventas", JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null,
+                new Object[]{"Todas las ventas", "Venta por fecha"},
+                "Todas las ventas");
+
+        switch (seleccion) {
+            case 0 -> {
+                JOptionPane.showMessageDialog(null, ventas);
+            }
+            case 1 -> {
+                boolean repetir = true;
+                int año = 0;
+                int mes = 0;
+                int dia = 0;
+                do {
+                    do {
+                        try {
+                            año = Integer.parseInt(JOptionPane.showInputDialog("Año de venta a comprobar"));
+                            repetir = false;
+                        } catch (NumberFormatException iae) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Datos erroneo introduce de nuevo", "Comprbación", 0);
+                            repetir = true;
+                        }
+                    } while (repetir);
+                    if (año < 1000) {
+                        JOptionPane.showMessageDialog(null,
+                                "Datos erroneo introduce de nuevo", "Comprbación", 0);
+                    }
+                } while (año < 1000);
+
+                do {
+                    do {
+                        try {
+                            mes = Integer.parseInt(JOptionPane.showInputDialog("Mes de venta a comprobar"));
+                            repetir = false;
+                        } catch (NumberFormatException iae) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Datos erroneo introduce de nuevo", "Comprbación", 0);
+                            repetir = true;
+                        }
+                    } while (repetir);
+                    if (mes < 1 || mes > 12) {
+                        JOptionPane.showMessageDialog(null,
+                                "Datos eroneo introduce de nuevo", "Comprbación", 0);
+                    }
+                } while (mes < 1 || mes > 12);
+
+                do {
+                    do {
+                        try {
+                            dia = Integer.parseInt(JOptionPane.showInputDialog("Dia de venta a comprobar"));
+                            repetir = false;
+                        } catch (NumberFormatException iae) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Datos erroneo introduce de nuevo", "Comprbación", 0);
+                            repetir = true;
+                        }
+                    } while (repetir);
+                    if (dia < 1 || dia > 31) {
+                        JOptionPane.showMessageDialog(null,
+                                "Datos erroneo introduce de nuevo", "Comprbación", 0);
+                    }
+                } while (dia < 1 || dia > 31);
+                
+                LocalDate fecha = LocalDate.of(año, mes, dia);
+            }
+        }
     }
 }
