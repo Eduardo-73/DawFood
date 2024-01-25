@@ -95,13 +95,13 @@ public class Ticket {
         sb.append("Turno: ").append(turno).append("\n");
         sb.append("Fecha: ").append(fecha).append("   Hora: ").append(hora.getHour()).append(":").append(hora.getMinute()).append("\n");
         sb.append("-------------------------------------------------------------------------------------\n");
-        sb.append("Cantidad                   Producto                  Precio\n");
+        sb.append("Cantidad                     Producto                         Precio\n");
         for (Productos productos : lista) {
             precioIVA = productos.getPrecio() * productos.getIva().valor;
             cantidad = String.valueOf(productos.getStock());
             producto = productos.getDescripcion();
             precio = String.format("%.2f", precioIVA);
-            sb.append("  ").append(cantidad).append("                         ").append(producto).append("               ").append(precio).append("€\n");
+            sb.append(String.format("       %s                         %s                   %s€\n", cantidad, producto, precio));
         }
         precioTotalFormateado = String.format("%.2f", precioTotal);
         sb.append("-------------------------------------------------------------------------------------\n");

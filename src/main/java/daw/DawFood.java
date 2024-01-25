@@ -29,18 +29,24 @@ public class DawFood {
                         switch (menuCarta) {
                             case 0 -> {
                                 posicion = MetodosDeClases.cartaComidas(menuTPV);
-                                MetodosDeClases.carrito(menuTPV, carrito, posicion);
+                                if (posicion != 0) {
+                                    MetodosDeClases.carrito(menuTPV, carrito, posicion);
+                                }
                             }
 
                             case 1 -> {
                                 posicion = MetodosDeClases.cartaBebidas(menuTPV);
-                                MetodosDeClases.carrito(menuTPV, carrito, posicion);
+                                if (posicion != 0) {
+                                    MetodosDeClases.carrito(menuTPV, carrito, posicion);
+                                }
                             }
 
                             case 2 -> {
                                 posicion = MetodosDeClases.mostrarArray(menuTPV,
                                         Categorias.POSTRES, Subcategorias.POSTRES);
-                                MetodosDeClases.carrito(menuTPV, carrito, posicion);
+                                if (posicion != 0) {
+                                    MetodosDeClases.carrito(menuTPV, carrito, posicion);
+                                }
                             }
 
                             case 3 -> {

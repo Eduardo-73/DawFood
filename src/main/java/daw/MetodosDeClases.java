@@ -103,6 +103,9 @@ public class MetodosDeClases {
                 JOptionPane.QUESTION_MESSAGE,
                 null, texto,
                 texto[0]);
+        if (seleccion == null) {
+            return 0;
+        }
         String[] partes = seleccion.split("/");
         String parteDes = partes[1];
         int idSeleccionada = 0;
@@ -166,6 +169,9 @@ public class MetodosDeClases {
                 "Menú", JOptionPane.QUESTION_MESSAGE, null,
                 new Object[]{"Carnes", "Ensaladas", "Pescados"},
                 "Seleccione");
+        if (menuComida == null) {
+            return posicion;
+        }
         String seleccionComida = menuComida.toString();
         switch (seleccionComida) {
             case "Carnes" -> {
@@ -193,6 +199,9 @@ public class MetodosDeClases {
                 "Menú", JOptionPane.QUESTION_MESSAGE, null,
                 new Object[]{"Refrescos", "Bebidas Alcohólicas", "Cafés y Infusiones"},
                 "Seleccione");
+        if (menuBebidas == null) {
+            return posicion;
+        }
         String seleccionBebida = menuBebidas.toString();
         switch (seleccionBebida) {
             case "Refrescos" -> {
@@ -209,6 +218,9 @@ public class MetodosDeClases {
                 posicion = mostrarArray(menu, Categorias.BEBIDAS,
                         Subcategorias.CAFES);
             }
+        }
+        if (seleccionBebida == null) {
+            return 0;
         }
         return posicion;
     }
