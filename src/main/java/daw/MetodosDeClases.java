@@ -273,6 +273,7 @@ public class MetodosDeClases {
                     JOptionPane.showMessageDialog(null,
                             t1);
                     ticket.add(t1);
+                    array.removeAll(array);
                 } else {
                     JOptionPane.showMessageDialog(null,
                             "No tienes saldo sufiente ");

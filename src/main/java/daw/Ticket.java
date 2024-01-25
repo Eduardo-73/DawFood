@@ -88,22 +88,26 @@ public class Ticket {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        String prod = "";
+        String cantidad = "", precioIVAF = null, precioTotalFormateado = "", producto = "", precio = "";
+        double precioIVA = 0;
         for (Productos productos : lista) {
-            prod += " " + productos.getStock() + " ---- " + productos.getDescripcion()
-                    + " ---- " + (productos.getPrecio() * productos.getIva().valor) + "€\n";
+            precioIVA = productos.getPrecio() * productos.getIva().valor;
+            precioIVAF = String.format("%.2f", precioIVA);
+            precioTotalFormateado = String.format("%.2f", precioTotal);
+            cantidad += productos.getStock();
+            producto += productos.getDescripcion();
+            precio += precioIVAF;
         }
-        String precioTotalFormateado = String.format("%.2f", precioTotal);
-        String txt = "-------------------------------------------------------------------------------------\n"
-                + "                                     DawFood\n"
-                + "Turno: " + turno + "\n"
-                + "Fecha: " + fecha + " Hora: " + hora.getHour() + ":" + hora.getMinute() + "\n"
-                + "-------------------------------------------------------------------------------------\n"
-                + prod
-                + "--------------------------------------------------------------------------------------\n"
-                + "Precio Total: " + precioTotalFormateado + "€" + "\n"
-                + "--------------------------------------------------------------------------------------\n";
-        sb.append(txt);
+        sb.append("-------------------------------------------------------------------------------------\n");
+        sb.append("                                    DawFood\n");
+        sb.append("Turno: " + turno + "\n");
+        sb.append("Fecha: " + fecha + " Hora: " + hora.getHour() + ":" + hora.getMinute() + "\n");
+        sb.append("-------------------------------------------------------------------------------------\n");
+        sb.append("Cantidad                   Productos                  Precio\n");
+        sb.append("  ").append(cantidad + "    " + producto + "         " + precio + "\n");
+        sb.append("-------------------------------------------------------------------------------------\n");
+        sb.append("Precio Total: ").append(precioTotalFormateado + "€" + "\n");
+        sb.append("-------------------------------------------------------------------------------------\n");
         return sb.toString();
     }
 
