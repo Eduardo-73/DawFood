@@ -91,9 +91,9 @@ public class MetodosDeClases {
         int contador = 0;
         for (Productos productos : mostrar) {
             if (productos.getCategoria() == c && productos.getSc() == sc) {
-                texto[contador++] = "Nº de Carta /" + productos.getId() + "/ Producto: /"
+                texto[contador++] = "Producto: /"
                         + productos.getDescripcion()
-                        + "/ Precio: /" + productos.getPrecio() + "€/";
+                        + "/ Precio: " + productos.getPrecio() + "€";
             }
         }
         String seleccion = (String) JOptionPane.showInputDialog(
@@ -104,7 +104,7 @@ public class MetodosDeClases {
                 null, texto,
                 texto[0]);
         String[] partes = seleccion.split("/");
-        String parteDes = partes[3];
+        String parteDes = partes[1];
         int idSeleccionada = 0;
         for (Productos producto : mostrar) {
             if (parteDes.equals(producto.getDescripcion())) {

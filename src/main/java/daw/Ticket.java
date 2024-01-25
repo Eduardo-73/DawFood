@@ -88,25 +88,24 @@ public class Ticket {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        String cantidad = "", precioIVAF = null, precioTotalFormateado = "", producto = "", precio = "";
+        String cantidad = "", precioIVAF = "", precioTotalFormateado = "", producto = "", precio = "";
         double precioIVA = 0;
+        sb.append("-------------------------------------------------------------------------------------\n");
+        sb.append("                                       DawFood\n");
+        sb.append("Turno: ").append(turno).append("\n");
+        sb.append("Fecha: ").append(fecha).append("   Hora: ").append(hora.getHour()).append(":").append(hora.getMinute()).append("\n");
+        sb.append("-------------------------------------------------------------------------------------\n");
+        sb.append("Cantidad                   Producto                  Precio\n");
         for (Productos productos : lista) {
             precioIVA = productos.getPrecio() * productos.getIva().valor;
-            precioIVAF = String.format("%.2f", precioIVA);
-            precioTotalFormateado = String.format("%.2f", precioTotal);
-            cantidad += productos.getStock();
-            producto += productos.getDescripcion();
-            precio += precioIVAF;
+            cantidad = String.valueOf(productos.getStock());
+            producto = productos.getDescripcion();
+            precio = String.format("%.2f", precioIVA);
+            sb.append("  ").append(cantidad).append("                         ").append(producto).append("               ").append(precio).append("€\n");
         }
+        precioTotalFormateado = String.format("%.2f", precioTotal);
         sb.append("-------------------------------------------------------------------------------------\n");
-        sb.append("                                    DawFood\n");
-        sb.append("Turno: " + turno + "\n");
-        sb.append("Fecha: " + fecha + " Hora: " + hora.getHour() + ":" + hora.getMinute() + "\n");
-        sb.append("-------------------------------------------------------------------------------------\n");
-        sb.append("Cantidad                   Productos                  Precio\n");
-        sb.append("  ").append(cantidad + "    " + producto + "         " + precio + "\n");
-        sb.append("-------------------------------------------------------------------------------------\n");
-        sb.append("Precio Total: ").append(precioTotalFormateado + "€" + "\n");
+        sb.append("Precio Total: ").append(precioTotalFormateado).append("€\n");
         sb.append("-------------------------------------------------------------------------------------\n");
         return sb.toString();
     }
