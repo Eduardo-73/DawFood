@@ -310,6 +310,12 @@ public class metodosAdmin {
                 } while (dia < 1 || dia > 31);
                 
                 LocalDate fecha = LocalDate.of(año, mes, dia);
+                
+                for (int i = 0; i < ventas.size(); i++) {
+                    if(fecha.equals(ventas.get(i).getFecha())){
+                        JOptionPane.showMessageDialog(null, "Ticket " + i + "" + ventas.get(i), "Ventas", 1);
+                    }
+                }
             }
         }
     }
