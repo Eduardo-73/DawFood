@@ -1,16 +1,3 @@
-<<<<<<< Updated upstream
-/home/adam/NetBeansProjects/DawFood/src/main/java/daw/Productos.java
-/home/adam/NetBeansProjects/DawFood/src/main/java/daw/Menu.java
-/home/adam/NetBeansProjects/DawFood/src/main/java/daw/DawFood.java
-/home/adam/NetBeansProjects/DawFood/src/main/java/daw/Subcategorias.java
-/home/adam/NetBeansProjects/DawFood/src/main/java/daw/Ticket.java
-/home/adam/NetBeansProjects/DawFood/src/main/java/daw/Tarjeta.java
-/home/adam/NetBeansProjects/DawFood/src/main/java/daw/MetodosDeClases.java
-/home/adam/NetBeansProjects/DawFood/src/main/java/daw/Categorias.java
-/home/adam/NetBeansProjects/DawFood/src/main/java/daw/InfoTPV.java
-/home/adam/NetBeansProjects/DawFood/src/main/java/daw/IVA.java
-/home/adam/NetBeansProjects/DawFood/src/main/java/daw/metodosAdmin.java
-=======
 /home/edu/NetBeansProjects/DawFood/src/main/java/daw/Tarjeta.java
 /home/edu/NetBeansProjects/DawFood/src/main/java/daw/MetodosDeClases.java
 /home/edu/NetBeansProjects/DawFood/src/main/java/daw/Subcategorias.java
@@ -22,4 +9,3 @@
 /home/edu/NetBeansProjects/DawFood/src/main/java/daw/Menu.java
 /home/edu/NetBeansProjects/DawFood/src/main/java/daw/DawFood.java
 /home/edu/NetBeansProjects/DawFood/src/main/java/daw/InfoTPV.java
->>>>>>> Stashed changes
