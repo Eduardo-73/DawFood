@@ -128,9 +128,9 @@ public class MetodosDeClases {
         for (Productos productos : mostrar) {
             double precioIVA = productos.getPrecio() * productos.getIva().valor;
             String precioIVAF = String.format("%.2f", precioIVA);
-            texto += "Cantidad " + productos.getStock() + ", Producto "
-                    + productos.getDescripcion()
-                    + ", Precio " + productos.getPrecio() + "€, Precio con IVA "
+            texto += productos.getStock() + ", "
+                    + productos.getDescripcion() + ", "
+                    + productos.getPrecio() + "€, IVA: "
                     + precioIVAF + "€\n";
         }
         int pago = JOptionPane.showOptionDialog(null,
