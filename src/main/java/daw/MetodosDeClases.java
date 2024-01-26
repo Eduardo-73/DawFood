@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author edu
  */
 public class MetodosDeClases {
-
+    
     public static ArrayList<Productos> cartaTPV() {
         ArrayList<Productos> menu = new ArrayList<>();
         menu.add(new Productos("Ensalada de atún",
@@ -84,7 +84,7 @@ public class MetodosDeClases {
                 6.00, IVA.DIEZ));
         return menu;
     }
-
+    
     public static int mostrarArray(ArrayList<Productos> mostrar, Categorias c,
             Subcategorias sc) {
         String[] texto = new String[mostrar.size()];
@@ -117,7 +117,7 @@ public class MetodosDeClases {
         }
         return idSeleccionada;
     }
-
+    
     public static int mostrarCarrito(ArrayList<Productos> mostrar) {
         String texto = "";
         DecimalFormat df = new DecimalFormat("#,##");
@@ -128,8 +128,8 @@ public class MetodosDeClases {
         for (Productos productos : mostrar) {
             double precioIVA = productos.getPrecio() * productos.getIva().valor;
             String precioIVAF = String.format("%.2f", precioIVA);
-            texto += productos.getStock() + ", "
-                    + productos.getDescripcion() + ", "
+            texto += productos.getStock() + "-> P: "
+                    + productos.getDescripcion() + ", P: "
                     + productos.getPrecio() + "€, IVA: "
                     + precioIVAF + "€\n";
         }
@@ -140,7 +140,7 @@ public class MetodosDeClases {
                 "Modo Usuario");
         return pago;
     }
-
+    
     public static int menuModos() {
         int seleccionMenu = JOptionPane.showOptionDialog(null,
                 "Seleccione una opcion",
@@ -150,7 +150,7 @@ public class MetodosDeClases {
                 "Modo Usuario");
         return seleccionMenu;
     }
-
+    
     public static int menuComida() {
         int menuComida = JOptionPane.showOptionDialog(null,
                 "Seleccione Una Opción",
@@ -161,7 +161,7 @@ public class MetodosDeClases {
                 "Seleccione");
         return menuComida;
     }
-
+    
     public static int cartaComidas(ArrayList<Productos> menu) {
         int posicion = 0;
         Object menuComida = JOptionPane.showInputDialog(null,
@@ -178,12 +178,12 @@ public class MetodosDeClases {
                 posicion = mostrarArray(menu, Categorias.COMIDAS,
                         Subcategorias.CARNES);
             }
-
+            
             case "Ensaladas" -> {
                 posicion = mostrarArray(menu, Categorias.COMIDAS,
                         Subcategorias.ENSALADAS);
             }
-
+            
             case "Pescados" -> {
                 posicion = mostrarArray(menu, Categorias.COMIDAS,
                         Subcategorias.PESCADOS);
@@ -191,7 +191,7 @@ public class MetodosDeClases {
         }
         return posicion;
     }
-
+    
     public static int cartaBebidas(ArrayList<Productos> menu) {
         int posicion = 0;
         Object menuBebidas = JOptionPane.showInputDialog(null,
@@ -208,12 +208,12 @@ public class MetodosDeClases {
                 posicion = mostrarArray(menu, Categorias.BEBIDAS,
                         Subcategorias.REFRESCOS);
             }
-
+            
             case "Bebidas Alcohólicas" -> {
                 posicion = mostrarArray(menu, Categorias.BEBIDAS,
                         Subcategorias.ALCOHOL);
             }
-
+            
             case "Cafés y Infusiones" -> {
                 posicion = mostrarArray(menu, Categorias.BEBIDAS,
                         Subcategorias.CAFES);
@@ -224,16 +224,18 @@ public class MetodosDeClases {
         }
         return posicion;
     }
-
+    
     public static void carrito(ArrayList<Productos> menu,
             ArrayList<Productos> carrito, int posicion) {
         int cantidad = 0;
+        int cantidadPositivo = 0;
         boolean repetir = true;
         // Preguntar al usuario la cantidad
         do {
             try {
                 cantidad = Integer.parseInt(JOptionPane.showInputDialog(
                         "Ingrese la cantidad que desea para " + menu.get(posicion).getDescripcion()));
+                cantidadPositivo = Math.abs(cantidad);
                 repetir = false;
             } catch (NumberFormatException nfe) {
                 JOptionPane.showMessageDialog(null,
@@ -242,7 +244,7 @@ public class MetodosDeClases {
             }
         } while (repetir);
         // Verificar si hay suficiente stock
-        if (cantidad <= menu.get(posicion).getStock()) {
+        if (cantidadPositivo <= menu.get(posicion).getStock()) {
             // Agregar al carrito con la cantidad especificada
             Productos prodCarrito = new Productos(
                     menu.get(posicion).getDescripcion(),
@@ -250,20 +252,30 @@ public class MetodosDeClases {
                     menu.get(posicion).getSc(),
                     menu.get(posicion).getPrecio(),
                     menu.get(posicion).getIva());
-            double nuevoPrecio = menu.get(posicion).getPrecio() * cantidad;
+            double nuevoPrecio = menu.get(posicion).getPrecio() * cantidadPositivo;
             prodCarrito.setPrecio(nuevoPrecio);
-            prodCarrito.setStock(cantidad);
+            prodCarrito.setStock(cantidadPositivo);
             carrito.add(prodCarrito);
             JOptionPane.showMessageDialog(null, "Producto agregado al carrito.",
                     "", JOptionPane.INFORMATION_MESSAGE);
+            int nuevoStock = menu.get(posicion).getStock() - cantidadPositivo;
+            menu.get(posicion).setStock(nuevoStock);
         } else {
             JOptionPane.showMessageDialog(null, "No hay suficiente stock para la cantidad deseada.",
                     "", JOptionPane.ERROR_MESSAGE);
         }
-        int nuevoStock = menu.get(posicion).getStock() - cantidad;
-        menu.get(posicion).setStock(nuevoStock);
+//        
+//        for (Productos productos : carrito) {
+//            if (productos.getDescripcion() == productos.getDescripcion()) {
+//                int nuevaCantidad = productos.getStock() + productos.getStock();
+//                productos.setStock(nuevaCantidad);
+//                double nuevaPrecio = productos.getStock() * productos.getPrecio();
+//                productos.setPrecio(nuevaPrecio);
+//                carrito.remove(carrito.size());
+//            }
+//        }
     }
-
+    
     public static void ticket(ArrayList<Productos> array, Tarjeta credito, ArrayList<Ticket> ticket) {
         System.out.println("CVV: " + credito.getCVV());
         System.out.println("PAN: " + credito.getPAN());
@@ -272,7 +284,6 @@ public class MetodosDeClases {
         for (Productos productos : array) {
             precioFinal += productos.getPrecio() * productos.getIva().valor;
         }
-        System.out.println(precioFinal);
         Ticket t1 = new Ticket(precioFinal, array);
         do {
             numCVVCliente = Integer.parseInt(JOptionPane.showInputDialog(
@@ -298,11 +309,11 @@ public class MetodosDeClases {
             }
         } while (numCVVCliente != credito.getCVV());
     }
-
+    
     public static void noComprar(ArrayList<Productos> array) {
         JOptionPane.showMessageDialog(null, "Se van a "
                 + "eliminar todos los productos del Carrito ");
         array.removeAll(array);
     }
-
+    
 }
