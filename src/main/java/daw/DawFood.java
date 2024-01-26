@@ -74,7 +74,10 @@ public class DawFood {
 
                 case 1 -> {
                     boolean contraseña = metodosAdmin.introducirContraseña();
-                    int accion = metodosAdmin.mostrarAcciones();
+                    if(contraseña == false){
+                        break;
+                    }
+                    int accion = accion = metodosAdmin.mostrarAcciones();
                     switch (accion) {
                         case 0 -> {
                             metodosAdmin.añadirProducto(menuTPV);
@@ -90,6 +93,10 @@ public class DawFood {
 
                         case 3 -> {
                             metodosAdmin.comprobarVentas(tickets);
+                        }
+
+                        case 4 -> {
+                            break;
                         }
                     }
                 }

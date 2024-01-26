@@ -20,7 +20,7 @@ public class metodosAdmin {
                 "Seleccione una acción de admin",
                 "Modo Administrador", JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null,
-                new Object[]{"Añadir Producto", "Editar Producto", "Eliminar Producto", "Comprobar ventas"},
+                new Object[]{"Añadir Producto", "Editar Producto", "Eliminar Producto", "Comprobar ventas", "Salir"},
                 "Comidas");
 
         return seleccion;
@@ -35,18 +35,18 @@ public class metodosAdmin {
                     JOptionPane.QUESTION_MESSAGE);
             int intento = i + 1;
             if (contraseña.equals(contraseña2)) {
-                JOptionPane.showMessageDialog(null, "Contraseña correcta ", contraseña, 1);
                 acceder = true;
+                JOptionPane.showMessageDialog(null, "Contraseña correcta ", contraseña, 1);
                 break;
             } else {
-                JOptionPane.showMessageDialog(null, "Contraseña erronea " + " intento " + intento + "/3", contraseña, 0);
                 acceder = false;
+                JOptionPane.showMessageDialog(null, "Contraseña erronea " + " intento " + intento + "/3", contraseña, 0);
             }
         }
 
         return acceder;
     }
-
+    
     public static String generarPasswd() {
         Random random = new Random();
         String minus = "abcdefghijklmnñopqrstuvwxyz";
@@ -242,7 +242,7 @@ public class metodosAdmin {
     }
 
     public static void comprobarVentas(ArrayList<Ticket> ventas) {
-         int seleccion = JOptionPane.showOptionDialog(null,
+        int seleccion = JOptionPane.showOptionDialog(null,
                 "Seleccione que quires comprobar",
                 "Ventas", JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null,
@@ -308,12 +308,12 @@ public class metodosAdmin {
                                 "Datos erroneo introduce de nuevo", "Comprbación", 0);
                     }
                 } while (dia < 1 || dia > 31);
-                
+
                 LocalDate fecha = LocalDate.of(año, mes, dia);
-                
+
                 for (int i = 0; i < ventas.size(); i++) {
-                    if(fecha.equals(ventas.get(i).getFecha())){
-                        JOptionPane.showMessageDialog(null, "Ticket " + i + "" + ventas.get(i), "Ventas", 1);
+                    if (fecha.equals(ventas.get(i).getFecha())) {
+                        JOptionPane.showMessageDialog(null, ventas.get(i), "Ventas", 1);
                     }
                 }
             }
