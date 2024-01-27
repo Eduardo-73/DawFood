@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  */
 public class DawFood {
 
-    public static void main(String[] args) {
+    public static void encender() {
         int menu, posicion = 0, menuCarta, pago;
         ArrayList<Productos> menuTPV = MetodosDeClases.cartaTPV();
         ArrayList<Productos> carrito = new ArrayList<>();
