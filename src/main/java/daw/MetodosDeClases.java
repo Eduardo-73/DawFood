@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,7 +17,7 @@ import javax.swing.JOptionPane;
  * @author edu
  */
 public class MetodosDeClases {
-    
+
     public static ArrayList<Productos> cartaTPV() {
         ArrayList<Productos> menu = new ArrayList<>();
         menu.add(new Productos("Ensalada de atún",
@@ -84,7 +85,7 @@ public class MetodosDeClases {
                 6.00, IVA.DIEZ));
         return menu;
     }
-    
+
     public static int mostrarArray(ArrayList<Productos> mostrar, Categorias c,
             Subcategorias sc) {
         String[] texto = new String[mostrar.size()];
@@ -117,7 +118,7 @@ public class MetodosDeClases {
         }
         return idSeleccionada;
     }
-    
+
     public static int mostrarCarrito(ArrayList<Productos> mostrar) {
         String texto = "";
         DecimalFormat df = new DecimalFormat("#,##");
@@ -128,8 +129,8 @@ public class MetodosDeClases {
         for (Productos productos : mostrar) {
             double precioIVA = productos.getPrecio() * productos.getIva().valor;
             String precioIVAF = String.format("%.2f", precioIVA);
-            texto += productos.getStock() + "-> P: "
-                    + productos.getDescripcion() + ", P: "
+            texto += productos.getStock() + " -> Prod: "
+                    + productos.getDescripcion() + ", Pre: "
                     + productos.getPrecio() + "€, IVA: "
                     + precioIVAF + "€\n";
         }
@@ -140,7 +141,7 @@ public class MetodosDeClases {
                 "Modo Usuario");
         return pago;
     }
-    
+
     public static int menuModos() {
         int seleccionMenu = JOptionPane.showOptionDialog(null,
                 "Seleccione una opcion",
@@ -150,7 +151,7 @@ public class MetodosDeClases {
                 "Modo Usuario");
         return seleccionMenu;
     }
-    
+
     public static int menuComida() {
         int menuComida = JOptionPane.showOptionDialog(null,
                 "Seleccione Una Opción",
@@ -161,7 +162,7 @@ public class MetodosDeClases {
                 "Seleccione");
         return menuComida;
     }
-    
+
     public static int cartaComidas(ArrayList<Productos> menu) {
         int posicion = 0;
         Object menuComida = JOptionPane.showInputDialog(null,
@@ -178,12 +179,12 @@ public class MetodosDeClases {
                 posicion = mostrarArray(menu, Categorias.COMIDAS,
                         Subcategorias.CARNES);
             }
-            
+
             case "Ensaladas" -> {
                 posicion = mostrarArray(menu, Categorias.COMIDAS,
                         Subcategorias.ENSALADAS);
             }
-            
+
             case "Pescados" -> {
                 posicion = mostrarArray(menu, Categorias.COMIDAS,
                         Subcategorias.PESCADOS);
@@ -191,7 +192,7 @@ public class MetodosDeClases {
         }
         return posicion;
     }
-    
+
     public static int cartaBebidas(ArrayList<Productos> menu) {
         int posicion = 0;
         Object menuBebidas = JOptionPane.showInputDialog(null,
@@ -208,12 +209,12 @@ public class MetodosDeClases {
                 posicion = mostrarArray(menu, Categorias.BEBIDAS,
                         Subcategorias.REFRESCOS);
             }
-            
+
             case "Bebidas Alcohólicas" -> {
                 posicion = mostrarArray(menu, Categorias.BEBIDAS,
                         Subcategorias.ALCOHOL);
             }
-            
+
             case "Cafés y Infusiones" -> {
                 posicion = mostrarArray(menu, Categorias.BEBIDAS,
                         Subcategorias.CAFES);
@@ -224,7 +225,7 @@ public class MetodosDeClases {
         }
         return posicion;
     }
-    
+
     public static void carrito(ArrayList<Productos> menu,
             ArrayList<Productos> carrito, int posicion) {
         int cantidad = 0;
@@ -252,10 +253,7 @@ public class MetodosDeClases {
                     menu.get(posicion).getSc(),
                     menu.get(posicion).getPrecio(),
                     menu.get(posicion).getIva());
-            double nuevoPrecio = menu.get(posicion).getPrecio() * cantidadPositivo;
-            prodCarrito.setPrecio(nuevoPrecio);
-            prodCarrito.setStock(cantidadPositivo);
-            carrito.add(prodCarrito);
+            agregarProductosCarrito(carrito, prodCarrito, cantidadPositivo);
             JOptionPane.showMessageDialog(null, "Producto agregado al carrito.",
                     "", JOptionPane.INFORMATION_MESSAGE);
             int nuevoStock = menu.get(posicion).getStock() - cantidadPositivo;
@@ -264,18 +262,41 @@ public class MetodosDeClases {
             JOptionPane.showMessageDialog(null, "No hay suficiente stock para la cantidad deseada.",
                     "", JOptionPane.ERROR_MESSAGE);
         }
-//        
-//        for (Productos productos : carrito) {
-//            if (productos.getDescripcion() == productos.getDescripcion()) {
-//                int nuevaCantidad = productos.getStock() + productos.getStock();
-//                productos.setStock(nuevaCantidad);
-//                double nuevaPrecio = productos.getStock() * productos.getPrecio();
-//                productos.setPrecio(nuevaPrecio);
-//                carrito.remove(carrito.size());
-//            }
-//        }
     }
-    
+
+    public static void agregarProductosCarrito(ArrayList<Productos> carrito,
+            Productos productoAAgregar, int cantidad) {
+        boolean productoEncontrado = false;
+        int nuevoStock = 0;
+        // Hago un Comparator por Descripcion para verificar si ese producto ya esta en el carrito
+        Comparator<Productos> porDescripcion
+                = (p1, p2) -> p1.getDescripcion().compareToIgnoreCase(p2.getDescripcion());
+        for (Productos productosEnCarrito : carrito) {
+        // Si está en el carrito le cambio la cantidad y el precio
+            if (porDescripcion.compare(productosEnCarrito, productoAAgregar) == 0) {
+                nuevoStock = productosEnCarrito.getStock() + cantidad;
+                productosEnCarrito.setStock(nuevoStock);
+                double nuevoPrecio = productosEnCarrito.getPrecio() * nuevoStock;
+                productosEnCarrito.setPrecio(nuevoPrecio);
+                productoEncontrado = true;
+                break;
+            }
+        }
+        // Si el producto no está en el carrito lo creo y lo añado
+        if (!productoEncontrado) {
+            Productos prodCarrito = new Productos(
+                    productoAAgregar.getDescripcion(),
+                    productoAAgregar.getCategoria(),
+                    productoAAgregar.getSc(),
+                    productoAAgregar.getPrecio(),
+                    productoAAgregar.getIva());
+            double nuevoPrecio = productoAAgregar.getPrecio() * cantidad;
+            prodCarrito.setPrecio(nuevoPrecio);
+            prodCarrito.setStock(cantidad);
+            carrito.add(prodCarrito);
+        }
+    }
+
     public static void ticket(ArrayList<Productos> array, Tarjeta credito, ArrayList<Ticket> ticket) {
         System.out.println("CVV: " + credito.getCVV());
         System.out.println("PAN: " + credito.getPAN());
@@ -309,11 +330,11 @@ public class MetodosDeClases {
             }
         } while (numCVVCliente != credito.getCVV());
     }
-    
+
     public static void noComprar(ArrayList<Productos> array) {
         JOptionPane.showMessageDialog(null, "Se van a "
                 + "eliminar todos los productos del Carrito ");
         array.removeAll(array);
     }
-    
+
 }
