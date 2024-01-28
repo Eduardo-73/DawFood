@@ -268,7 +268,7 @@ public class MetodosDeClases {
             Productos productoAAgregar, int cantidad) {
         boolean productoEncontrado = false;
         int nuevoStock = 0;
-        // Hago un Comparator por Descripcion para verificar si ese producto ya esta en el carrito
+        // Hago un Comparator por descripcion para verificar si ese producto ya esta en el carrito
         Comparator<Productos> porDescripcion
                 = (p1, p2) -> p1.getDescripcion().compareToIgnoreCase(p2.getDescripcion());
         for (Productos productosEnCarrito : carrito) {

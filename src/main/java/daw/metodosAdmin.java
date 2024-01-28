@@ -28,25 +28,32 @@ public class metodosAdmin {
 
     public static boolean introducirContraseña() {
         String contraseña2 = generarPasswd();
+        String contrasenia = "";
         boolean acceder = true;
         for (int i = 0; i < 3; i++) {
-            String contraseña = JOptionPane.showInputDialog(null,
-                    "Introduce la contraseña", "Verificación de contraseña",
-                    JOptionPane.QUESTION_MESSAGE);
+            do {
+                contrasenia = JOptionPane.showInputDialog(null,
+                        "Introduce la contraseña", "Verificación de contraseña",
+                        JOptionPane.QUESTION_MESSAGE);
+                if (contrasenia == null) {
+                    JOptionPane.showMessageDialog(null, "Debes "
+                            + "de introducir la contraseña para continuar");
+                }
+            } while (contrasenia == null);
             int intento = i + 1;
-            if (contraseña.equals(contraseña2)) {
+            if (contrasenia.equals(contraseña2)) {
                 acceder = true;
-                JOptionPane.showMessageDialog(null, "Contraseña correcta ", contraseña, 1);
+                JOptionPane.showMessageDialog(null, "Contraseña correcta ", contrasenia, 1);
                 break;
             } else {
                 acceder = false;
-                JOptionPane.showMessageDialog(null, "Contraseña erronea " + " intento " + intento + "/3", contraseña, 0);
+                JOptionPane.showMessageDialog(null, "Contraseña erronea " + " intento " + intento + "/3", contrasenia, 0);
             }
         }
 
         return acceder;
     }
-    
+
     public static String generarPasswd() {
         Random random = new Random();
         String minus = "abcdefghijklmnñopqrstuvwxyz";
