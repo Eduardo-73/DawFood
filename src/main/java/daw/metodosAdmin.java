@@ -61,15 +61,20 @@ public class metodosAdmin {
         String mayus = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
         String numeros = "0123456789";
         String especial = "#$%&()*+,-.:;<=>@";
-        boolean contieneMinus = false;
-        boolean contieneMayus = false;
-        boolean contieneNumero = false;
-        boolean contieneEspecial = false;
-        
+        boolean contieneMinus;
+        boolean contieneMayus;
+        boolean contieneNumero;
+        boolean contieneEspecial;
+
         do {
+            //Resetea todo
             contraseña.setLength(0);
+            contieneMinus = false;
+            contieneMayus = false;
+            contieneNumero = false;
+            contieneEspecial = false;
             for (int i = 0; i < 6; i++) {
-                int pos = random.nextInt(4);  
+                int pos = random.nextInt(4);
                 switch (pos) {
                     case 0:
                         contraseña.append(minus.charAt(random.nextInt(minus.length())));
