@@ -56,19 +56,45 @@ public class metodosAdmin {
 
     public static String generarPasswd() {
         Random random = new Random();
+        StringBuilder contraseña = new StringBuilder();
         String minus = "abcdefghijklmnñopqrstuvwxyz";
         String mayus = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
         String numeros = "0123456789";
         String especial = "#$%&()*+,-.:;<=>@";
-        String suma = minus + mayus + numeros + especial;
-        StringBuilder contraseña = new StringBuilder();
+        boolean contieneMinus;
+        boolean contieneMayus;
+        boolean contieneNumero;
+        boolean contieneEspecial;
 
-        for (int i = 0; i < 6; i++) {
-            int pos = random.nextInt(suma.length());
-            char letra = suma.charAt(pos);
-            contraseña.append(letra);
-        }
-
+        do {
+            //Resetea todo
+            contraseña.setLength(0);
+            contieneMinus = false;
+            contieneMayus = false;
+            contieneNumero = false;
+            contieneEspecial = false;
+            for (int i = 0; i < 6; i++) {
+                int pos = random.nextInt(4);
+                switch (pos) {
+                    case 0:
+                        contraseña.append(minus.charAt(random.nextInt(minus.length())));
+                        contieneMinus = true;
+                        break;
+                    case 1:
+                        contraseña.append(mayus.charAt(random.nextInt(mayus.length())));
+                        contieneMayus = true;
+                        break;
+                    case 2:
+                        contraseña.append(numeros.charAt(random.nextInt(numeros.length())));
+                        contieneNumero = true;
+                        break;
+                    case 3:
+                        contraseña.append(especial.charAt(random.nextInt(especial.length())));
+                        contieneEspecial = true;
+                        break;
+                }
+            }
+        } while (!(contieneMinus && contieneMayus && contieneNumero && contieneEspecial));
         System.out.println(contraseña);
         return contraseña.toString();
     }
@@ -78,7 +104,7 @@ public class metodosAdmin {
         Subcategorias sub = null;
 
         //Pide descripcion nueva
-        String desc = JOptionPane.showInputDialog("Introduce la descripcion del producto");
+        String desc = JOptionPane.showInputDialog("Introduce la descripción del producto");
 
         //Pide que categoria es el producto
         Object aux = JOptionPane.showInputDialog(null,
@@ -127,7 +153,7 @@ public class metodosAdmin {
                 precio = Double.parseDouble(JOptionPane.showInputDialog("Introduce el precio del producto"));
                 repetir = false;
             } catch (NumberFormatException iae) {
-                JOptionPane.showMessageDialog(null, "Datos eroneos introduce de nuevo");
+                JOptionPane.showMessageDialog(null, "Datos erroneos introduce de nuevo");
                 repetir = true;
             }
         } while (repetir);
@@ -147,8 +173,8 @@ public class metodosAdmin {
         Categorias categoria;
         //seleccion de producto
         int seleccion = JOptionPane.showOptionDialog(null,
-                "Seleccione una opcion",
-                "Eleccion producto a cambiar", JOptionPane.YES_NO_CANCEL_OPTION,
+                "Seleccione una opción",
+                "Elección producto a cambiar", JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null,
                 new Object[]{"Comidas", "Bebidas", "Postres"},
                 "Comidas");
@@ -167,14 +193,14 @@ public class metodosAdmin {
         }
         //Seleccion de campo que quieres que cambiar del producto anterirmente seleccionado
         int campoCambiar = JOptionPane.showOptionDialog(null,
-                "Seleccione una opcion para cambiar",
-                "Eleccion campo a cambiar", JOptionPane.YES_NO_CANCEL_OPTION,
+                "Seleccione una opción para cambiar",
+                "Elección campo a cambiar", JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null,
-                new Object[]{"Descripcion", "Precio", "Categoria", "Subcategoria", "IVA"},
+                new Object[]{"Descripción", "Precio", "Categoria", "Subcategoria", "IVA"},
                 "Precio");
         switch (campoCambiar) {
             case 0 -> {
-                String desc = JOptionPane.showInputDialog("Introduce la nueva descripcion del producto");
+                String desc = JOptionPane.showInputDialog("Introduce la nueva descripción del producto");
                 menuTPV.get(posicion).setDescripcion(desc);
             }
 
@@ -186,7 +212,7 @@ public class metodosAdmin {
                         precio = Double.parseDouble(JOptionPane.showInputDialog("Introduce el precio del producto"));
                         repetir = false;
                     } catch (NumberFormatException iae) {
-                        JOptionPane.showMessageDialog(null, "Datos eroneos introduce de nuevo");
+                        JOptionPane.showMessageDialog(null, "Datos erroneos introduce de nuevo");
                         repetir = true;
                     }
                 } while (repetir);
@@ -226,8 +252,8 @@ public class metodosAdmin {
         int posicion = 0;
         //seleccion de producto
         int seleccion = JOptionPane.showOptionDialog(null,
-                "Seleccione una opcion",
-                "Eleccion producto a eliminar", JOptionPane.YES_NO_CANCEL_OPTION,
+                "Seleccione una opción",
+                "Elección producto a eliminar", JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null,
                 new Object[]{"Comidas", "Bebidas", "Postres"},
                 "Comidas");
@@ -272,13 +298,13 @@ public class metodosAdmin {
                             repetir = false;
                         } catch (NumberFormatException iae) {
                             JOptionPane.showMessageDialog(null,
-                                    "Datos erroneo introduce de nuevo", "Comprbación", 0);
+                                    "Datos erroneo introduce de nuevo", "Comprobación", 0);
                             repetir = true;
                         }
                     } while (repetir);
                     if (año < 1000) {
                         JOptionPane.showMessageDialog(null,
-                                "Datos erroneo introduce de nuevo", "Comprbación", 0);
+                                "Datos erroneo introduce de nuevo", "Comprobación", 0);
                     }
                 } while (año < 1000);
 
@@ -289,13 +315,13 @@ public class metodosAdmin {
                             repetir = false;
                         } catch (NumberFormatException iae) {
                             JOptionPane.showMessageDialog(null,
-                                    "Datos erroneo introduce de nuevo", "Comprbación", 0);
+                                    "Datos erroneo introduce de nuevo", "Comprobación", 0);
                             repetir = true;
                         }
                     } while (repetir);
                     if (mes < 1 || mes > 12) {
                         JOptionPane.showMessageDialog(null,
-                                "Datos eroneo introduce de nuevo", "Comprbación", 0);
+                                "Datos eroneo introduce de nuevo", "Comprobación", 0);
                     }
                 } while (mes < 1 || mes > 12);
 
@@ -306,13 +332,13 @@ public class metodosAdmin {
                             repetir = false;
                         } catch (NumberFormatException iae) {
                             JOptionPane.showMessageDialog(null,
-                                    "Datos erroneo introduce de nuevo", "Comprbación", 0);
+                                    "Datos erroneo introduce de nuevo", "Comprobación", 0);
                             repetir = true;
                         }
                     } while (repetir);
                     if (dia < 1 || dia > 31) {
                         JOptionPane.showMessageDialog(null,
-                                "Datos erroneo introduce de nuevo", "Comprbación", 0);
+                                "Datos erroneo introduce de nuevo", "Comprobación", 0);
                     }
                 } while (dia < 1 || dia > 31);
 
