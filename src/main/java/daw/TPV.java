@@ -9,7 +9,7 @@ package daw;
  * @author User
  */
 public class TPV {
-
+    // Clase main
     public static void main(String[] args) {
         DawFood.encender();
     }
