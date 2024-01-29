@@ -59,12 +59,12 @@ public class MetodosDeClases {
         menu.add(new Productos("Blue Label",
                 Categorias.BEBIDAS, Subcategorias.ALCOHOL,
                 30.00, IVA.VENTIUNO));
-        menu.add(new Productos("Double Black Label",
+        menu.add(new Productos("Cerveza",
                 Categorias.BEBIDAS, Subcategorias.ALCOHOL,
-                15.00, IVA.VENTIUNO));
-        menu.add(new Productos("Red Label",
+                1.50, IVA.VENTIUNO));
+        menu.add(new Productos("Ron-Cola",
                 Categorias.BEBIDAS, Subcategorias.ALCOHOL,
-                12.00, IVA.VENTIUNO));
+                6.50, IVA.VENTIUNO));
         menu.add(new Productos("Té de Menta",
                 Categorias.BEBIDAS, Subcategorias.CAFES,
                 2.50, IVA.DIEZ));
@@ -236,6 +236,11 @@ public class MetodosDeClases {
             try {
                 cantidad = Integer.parseInt(JOptionPane.showInputDialog(
                         "Ingrese la cantidad que desea para " + menu.get(posicion).getDescripcion()));
+                if (cantidad == 0) {
+                    JOptionPane.showMessageDialog(null,
+                            "Debes introducir un número mayor a 0");
+                    continue;
+                }
                 cantidadPositivo = Math.abs(cantidad);
                 repetir = false;
             } catch (NumberFormatException nfe) {
@@ -272,7 +277,7 @@ public class MetodosDeClases {
         Comparator<Productos> porDescripcion
                 = (p1, p2) -> p1.getDescripcion().compareToIgnoreCase(p2.getDescripcion());
         for (Productos productosEnCarrito : carrito) {
-        // Si está en el carrito le cambio la cantidad y el precio
+            // Si está en el carrito le cambio la cantidad y el precio
             if (porDescripcion.compare(productosEnCarrito, productoAAgregar) == 0) {
                 nuevoStock = productosEnCarrito.getStock() + cantidad;
                 productosEnCarrito.setStock(nuevoStock);
@@ -300,40 +305,51 @@ public class MetodosDeClases {
     public static void ticket(ArrayList<Productos> array, Tarjeta credito, ArrayList<Ticket> ticket) {
         System.out.println("CVV: " + credito.getCVV());
         System.out.println("PAN: " + credito.getPAN());
-        int numCVVCliente = 0;
+        System.out.println("Fecha Vencimiento: " + credito.getFechaVencimiento());
+        int numCVVCliente = 0, numPANCliente = 0;
         double precioFinal = 0, restarSaldo;
         for (Productos productos : array) {
             precioFinal += productos.getPrecio() * productos.getIva().valor;
         }
         Ticket t1 = new Ticket(precioFinal, array);
         do {
-            numCVVCliente = Integer.parseInt(JOptionPane.showInputDialog(
-                    "Introduce el CVV de tu tarjeta "));
-            if (numCVVCliente == credito.getCVV()) {
+            numPANCliente = Integer.parseInt(JOptionPane.showInputDialog(
+                    "Introduce el PAN de tu tarjeta "));
+            if (numPANCliente == credito.getPAN()) {
                 JOptionPane.showMessageDialog(null,
-                        "CVV Correcto ");
-                if (credito.getSaldo() > precioFinal) {
-                    restarSaldo = credito.getSaldo() - precioFinal;
-                    credito.setSaldo(restarSaldo);
+                        "PAN Correcto ");
+                numCVVCliente = Integer.parseInt(JOptionPane.showInputDialog(
+                        "Introduce el CVV de tu tarjeta "));
+                if (numCVVCliente == credito.getCVV()) {
                     JOptionPane.showMessageDialog(null,
-                            t1);
-                    ticket.add(t1);
-                    array.removeAll(array);
+                            "CVV Correcto ");
+                    if (credito.getSaldo() > precioFinal) {
+                        restarSaldo = credito.getSaldo() - precioFinal;
+                        credito.setSaldo(restarSaldo);
+                        JOptionPane.showMessageDialog(null,
+                                t1);
+                        ticket.add(t1);
+                        array.removeAll(array);
+                    } else {
+                        JOptionPane.showMessageDialog(null,
+                                "No tienes saldo sufiente ");
+                        break;
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null,
-                            "No tienes saldo sufiente ");
-                    break;
+                            "CVV erroneo ");
                 }
             } else {
                 JOptionPane.showMessageDialog(null,
-                        "CVV erroneo ");
+                        "PAN erroneo ");
             }
-        } while (numCVVCliente != credito.getCVV());
+        } while (numCVVCliente != credito.getCVV()
+                || numPANCliente != credito.getPAN());
     }
 
     public static void noComprar(ArrayList<Productos> array) {
-        JOptionPane.showMessageDialog(null, "Se van a "
-                + "eliminar todos los productos del Carrito ");
+        JOptionPane.showMessageDialog(null, "Se ha "
+                + "eliminado todos los productos del Carrito ");
         array.removeAll(array);
     }
 
