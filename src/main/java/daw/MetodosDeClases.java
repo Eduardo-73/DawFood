@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.InputMismatchException;
 import javax.swing.JOptionPane;
 
 /**
@@ -88,6 +89,9 @@ public class MetodosDeClases {
 
     public static int mostrarArray(ArrayList<Productos> mostrar, Categorias c,
             Subcategorias sc) {
+        // Muestra la carta y con un split comparo la descripcion seleccionada
+        // Con la descripcion de la carta y asi consigo el id del producto para
+        // posterior mente meter ese producto al carrito
         String[] texto = new String[mostrar.size()];
         int contador = 0;
         for (Productos productos : mostrar) {
@@ -120,6 +124,7 @@ public class MetodosDeClases {
     }
 
     public static int mostrarCarrito(ArrayList<Productos> mostrar) {
+        // Muestra el carrito
         String texto = "";
         DecimalFormat df = new DecimalFormat("#,##");
         if (mostrar.isEmpty()) {
@@ -143,6 +148,7 @@ public class MetodosDeClases {
     }
 
     public static int menuModos() {
+        // Te muestra los dos modos del menu que hay 
         int seleccionMenu = JOptionPane.showOptionDialog(null,
                 "Seleccione una opcion",
                 "Modos TPV", JOptionPane.YES_NO_CANCEL_OPTION,
@@ -153,6 +159,8 @@ public class MetodosDeClases {
     }
 
     public static int menuComida() {
+        // Muestra la carta del restaurante y depende de lo que elijas 
+        // te muestra una subcategoria
         int menuComida = JOptionPane.showOptionDialog(null,
                 "Seleccione Una Opción",
                 "Menú", JOptionPane.YES_NO_CANCEL_OPTION,
@@ -164,6 +172,8 @@ public class MetodosDeClases {
     }
 
     public static int cartaComidas(ArrayList<Productos> menu) {
+        // Muestra las subcategorias de comidas y muestra el menu
+        // según la subcategoria que hayas elegido
         int posicion = 0;
         Object menuComida = JOptionPane.showInputDialog(null,
                 "¿Qué te apetece?",
@@ -194,6 +204,8 @@ public class MetodosDeClases {
     }
 
     public static int cartaBebidas(ArrayList<Productos> menu) {
+        // Muestra las subcategorias de bebidas y muestra el menu
+        // según la subcategoria que hayas elegido
         int posicion = 0;
         Object menuBebidas = JOptionPane.showInputDialog(null,
                 "¿Qué te apetece?",
@@ -241,6 +253,7 @@ public class MetodosDeClases {
                             "Debes introducir un número mayor a 0");
                     continue;
                 }
+                // Pongo la cantidad en positivo
                 cantidadPositivo = Math.abs(cantidad);
                 repetir = false;
             } catch (NumberFormatException nfe) {
@@ -251,7 +264,8 @@ public class MetodosDeClases {
         } while (repetir);
         // Verificar si hay suficiente stock
         if (cantidadPositivo <= menu.get(posicion).getStock()) {
-            // Agregar al carrito con la cantidad especificada
+            // Creo un producto y lo paso al método agregarProducto para ver si existe, 
+            // o no, 
             Productos prodCarrito = new Productos(
                     menu.get(posicion).getDescripcion(),
                     menu.get(posicion).getCategoria(),
@@ -261,9 +275,11 @@ public class MetodosDeClases {
             agregarProductosCarrito(carrito, prodCarrito, cantidadPositivo);
             JOptionPane.showMessageDialog(null, "Producto agregado al carrito.",
                     "", JOptionPane.INFORMATION_MESSAGE);
+            // Cambia el stock del producto que esta en el menu y va quitando cantidad a la carta
             int nuevoStock = menu.get(posicion).getStock() - cantidadPositivo;
             menu.get(posicion).setStock(nuevoStock);
         } else {
+            // Si no hay stock no lo añade 
             JOptionPane.showMessageDialog(null, "No hay suficiente stock para la cantidad deseada.",
                     "", JOptionPane.ERROR_MESSAGE);
         }
@@ -303,51 +319,91 @@ public class MetodosDeClases {
     }
 
     public static void ticket(ArrayList<Productos> array, Tarjeta credito, ArrayList<Ticket> ticket) {
-        System.out.println("CVV: " + credito.getCVV());
+        // Muestro los datos de la tarjeta que hay que poner para continuar
         System.out.println("PAN: " + credito.getPAN());
-        System.out.println("Fecha Vencimiento: " + credito.getFechaVencimiento());
-        int numCVVCliente = 0, numPANCliente = 0;
+        System.out.println("CVV: " + credito.getCVV());
+        System.out.println("Fecha Vencimiento: " + credito.getFechaVencimiento().getMonthValue()
+                + "/" + credito.getFechaVencimiento().getYear());
+        System.out.printf("Saldo: %.2f\n", credito.getSaldo());
+        int numCVVCliente = 0, numPANCliente = 0, numMesTarjetaCli = 0,
+                numAnioTarjetaCli = 0;
         double precioFinal = 0, restarSaldo;
+        boolean repetir = true;
+        // Sumo el precio Total y se lo paso a la clase Ticket para crearlo
         for (Productos productos : array) {
             precioFinal += productos.getPrecio() * productos.getIva().valor;
         }
         Ticket t1 = new Ticket(precioFinal, array);
+        // Le pido los datos al usuario de su tarjeta y si lo ponen mal 
+        // vuelve a pedirselos desde el principio, si no tiene saldo no te 
+        // deja comprar y te saca del carrito. Si esta todo correcto te muestra el ticket
         do {
-            numPANCliente = Integer.parseInt(JOptionPane.showInputDialog(
-                    "Introduce el PAN de tu tarjeta "));
-            if (numPANCliente == credito.getPAN()) {
-                JOptionPane.showMessageDialog(null,
-                        "PAN Correcto ");
-                numCVVCliente = Integer.parseInt(JOptionPane.showInputDialog(
-                        "Introduce el CVV de tu tarjeta "));
-                if (numCVVCliente == credito.getCVV()) {
+            try {
+                numPANCliente = Integer.parseInt(JOptionPane.showInputDialog(
+                        "Introduce el PAN de tu tarjeta "));
+                if (numPANCliente == credito.getPAN()) {
                     JOptionPane.showMessageDialog(null,
-                            "CVV Correcto ");
-                    if (credito.getSaldo() > precioFinal) {
-                        restarSaldo = credito.getSaldo() - precioFinal;
-                        credito.setSaldo(restarSaldo);
+                            "PAN Correcto ");
+                    numCVVCliente = Integer.parseInt(JOptionPane.showInputDialog(
+                            "Introduce el CVV de tu tarjeta "));
+                    if (numCVVCliente == credito.getCVV()) {
                         JOptionPane.showMessageDialog(null,
-                                t1);
-                        ticket.add(t1);
-                        array.removeAll(array);
+                                "CVV Correcto ");
+                        numMesTarjetaCli = Integer.parseInt(JOptionPane.showInputDialog(
+                                "Introduce el Mes de tu tarjeta "));
+                        if (numMesTarjetaCli == credito.getFechaVencimiento().getMonthValue()) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Mes Correcto ");
+                            numAnioTarjetaCli = Integer.parseInt(JOptionPane.showInputDialog(
+                                    "Introduce el Año de tu tarjeta "));
+                            if (numAnioTarjetaCli == credito.getFechaVencimiento().getYear()) {
+                                JOptionPane.showMessageDialog(null,
+                                        "Año Correcto ");
+                                if (credito.getSaldo() > precioFinal) {
+                                    restarSaldo = credito.getSaldo() - precioFinal;
+                                    credito.setSaldo(restarSaldo);
+                                    JOptionPane.showMessageDialog(null,
+                                            t1);
+                                    // Añado el ticket para despues en el modo administrador poder verlo
+                                    // Y borro el carrito para poder hacer otra compra desde 0
+                                    ticket.add(t1);
+                                    array.removeAll(array);
+                                } else {
+                                    JOptionPane.showMessageDialog(null,
+                                            "No tienes saldo sufiente ");
+                                    break;
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(null,
+                                        "Año erroneo ");
+                                continue;
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null,
+                                    "Mes erroneo ");
+                            continue;
+                        }
                     } else {
                         JOptionPane.showMessageDialog(null,
-                                "No tienes saldo sufiente ");
-                        break;
+                                "CVV erroneo ");
+                        continue;
                     }
                 } else {
                     JOptionPane.showMessageDialog(null,
-                            "CVV erroneo ");
+                            "PAN erroneo ");
+                    continue;
                 }
-            } else {
+                repetir = false;
+            } catch (NumberFormatException nfe) {
                 JOptionPane.showMessageDialog(null,
-                        "PAN erroneo ");
+                        "Introduce los datos correctos", "Información",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
-        } while (numCVVCliente != credito.getCVV()
-                || numPANCliente != credito.getPAN());
+        } while (repetir);
     }
 
     public static void noComprar(ArrayList<Productos> array) {
+        // Elimina los productos del carrito si no se quiere comprar nada
         JOptionPane.showMessageDialog(null, "Se ha "
                 + "eliminado todos los productos del Carrito ");
         array.removeAll(array);

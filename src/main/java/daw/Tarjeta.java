@@ -22,16 +22,15 @@ public class Tarjeta {
     private final int CVV;
 
     // Constructor
-    public Tarjeta(String nombre, double saldo) {
+    public Tarjeta(String nombre) {
         this.nombre = nombre;
         this.PAN = rd.nextInt(1_111, 9_999);
-        this.saldo = saldo;
+        this.saldo = rd.nextDouble(1_111, 9_999);
         this.fechaVencimiento = LocalDate.now().plusYears(5);
         this.CVV = rd.nextInt(111, 999);
     }
 
     // Get y Set
-    
     public int getCVV() {
         return CVV;
     }

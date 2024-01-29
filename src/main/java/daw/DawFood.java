@@ -18,11 +18,11 @@ public class DawFood {
         ArrayList<Productos> menuTPV = MetodosDeClases.cartaTPV();
         ArrayList<Productos> carrito = new ArrayList<>();
         ArrayList<Ticket> tickets = new ArrayList<>();
-        Tarjeta t1 = new Tarjeta("Pepe", 1000.00);
+        Tarjeta t1 = new Tarjeta("Pepe");
         int seleccionTPV;
         do {
             seleccionTPV = JOptionPane.showOptionDialog(null,
-                    "Seleccione una opcion",
+                    "Bienvenido",
                     "DawFood", JOptionPane.YES_NO_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE, null,
                     new Object[]{"Encender TPV", "ApagarTPV"},

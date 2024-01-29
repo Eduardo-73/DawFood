@@ -88,6 +88,7 @@ public class Ticket {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        // Genero un ticket utilizando el StringBuilder
         String cantidad = "", precioIVAF = "", precioTotalFormateado = "", producto = "", precio = "";
         double precioIVA = 0;
         sb.append("-------------------------------------------------------------------------------------\n");
