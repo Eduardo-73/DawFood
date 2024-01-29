@@ -347,43 +347,4 @@ public class metodosAdmin {
             }
         }
     }
-    
-    public static void main(String[] args) {
-       Random random = new Random();
-        StringBuilder contraseña = new StringBuilder();
-        String minus = "abcdefghijklmnñopqrstuvwxyz";
-        String mayus = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
-        String numeros = "0123456789";
-        String especial = "#$%&()*+,-.:;<=>@";
-        boolean contieneMinus = false;
-        boolean contieneMayus = false;
-        boolean contieneNumero = false;
-        boolean contieneEspecial = false;
-        
-        do {
-            contraseña.setLength(0);
-            for (int i = 0; i < 6; i++) {
-                int pos = random.nextInt(4);  // 0: minus, 1: mayus, 2: numeros, 3: especial
-                switch (pos) {
-                    case 0:
-                        contraseña.append(minus.charAt(random.nextInt(minus.length())));
-                        contieneMinus = true;
-                        break;
-                    case 1:
-                        contraseña.append(mayus.charAt(random.nextInt(mayus.length())));
-                        contieneMayus = true;
-                        break;
-                    case 2:
-                        contraseña.append(numeros.charAt(random.nextInt(numeros.length())));
-                        contieneNumero = true;
-                        break;
-                    case 3:
-                        contraseña.append(especial.charAt(random.nextInt(especial.length())));
-                        contieneEspecial = true;
-                        break;
-                }
-            }
-        } while (!(contieneMinus && contieneMayus && contieneNumero && contieneEspecial));
-        System.out.println(contraseña);
-    }
 }
