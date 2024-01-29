@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 public class metodosAdmin {
 
     public static int mostrarAcciones() {
+        //Muestra todas las acciones que puede elegir hacer el admin
         int seleccion = JOptionPane.showOptionDialog(null,
                 "Seleccione una acción de admin",
                 "Modo Administrador", JOptionPane.YES_NO_CANCEL_OPTION,
@@ -30,6 +31,8 @@ public class metodosAdmin {
         String contraseña2 = generarPasswd();
         String contrasenia = "";
         boolean acceder = true;
+        //Aqui introduces la contrseña y verifica que es correcta
+        //Tiene 3 intentetos para introducir la contraseña corectamente
         for (int i = 0; i < 3; i++) {
             do {
                 contrasenia = JOptionPane.showInputDialog(null,
@@ -65,9 +68,10 @@ public class metodosAdmin {
         boolean contieneMayus;
         boolean contieneNumero;
         boolean contieneEspecial;
-
+        //Genera una contrseña aleatoria de longitud 6, utilizando los caracteres 
+        //proporcionados
         do {
-            //Resetea todo
+            //Resetea todo (sino falla)
             contraseña.setLength(0);
             contieneMinus = false;
             contieneMayus = false;
@@ -114,7 +118,7 @@ public class metodosAdmin {
 
         if (aux.equals("Comida")) {
             cat = Categorias.COMIDAS;
-            //Pide subcategoria
+            //Pide subcategoria del producto
             Object aux2 = JOptionPane.showInputDialog(null,
                     "Que subcategoria es el producto", "Agregar producto",
                     JOptionPane.QUESTION_MESSAGE, null,
@@ -128,7 +132,7 @@ public class metodosAdmin {
             }
         } else if (aux.equals("Bebida")) {
             cat = Categorias.BEBIDAS;
-            //Pide subcategoria
+            //Pide subcategoria del producto
             Object aux2 = JOptionPane.showInputDialog(null,
                     "Que subcategoria es el producto", "Agregar producto",
                     JOptionPane.QUESTION_MESSAGE, null,
@@ -145,7 +149,7 @@ public class metodosAdmin {
             sub = Subcategorias.POSTRES;
         }
 
-        //Pide precio
+        //Pide precio del producto
         double precio = 0;
         boolean repetir = true;
         do {
@@ -157,7 +161,7 @@ public class metodosAdmin {
                 repetir = true;
             }
         } while (repetir);
-        //pone IVA dependiendo del producto
+        //pone IVA dependiendo del tipo de producto
         IVA iva;
         if (sub.equals(Subcategorias.REFRESCOS) || sub.equals(Subcategorias.ALCOHOL)) {
             iva = IVA.VENTIUNO;
@@ -171,14 +175,15 @@ public class metodosAdmin {
     public static void editarProducto(ArrayList<Productos> menuTPV) {
         int posicion = 0;
         Categorias categoria;
-        //seleccion de producto
+        //seleccion de producto a editar
         int seleccion = JOptionPane.showOptionDialog(null,
                 "Seleccione una opción",
                 "Elección producto a cambiar", JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null,
                 new Object[]{"Comidas", "Bebidas", "Postres"},
                 "Comidas");
-
+        
+        //Muestra las diferentes opciones de producto dependiedo de la seleccion
         switch (seleccion) {
             case 0 -> {
                 posicion = MetodosDeClases.cartaComidas(menuTPV);
@@ -191,7 +196,7 @@ public class metodosAdmin {
                         Categorias.POSTRES, Subcategorias.POSTRES);
             }
         }
-        //Seleccion de campo que quieres que cambiar del producto anterirmente seleccionado
+        //Seleccion de campo que quieres que cambiar del producto seleccionado
         int campoCambiar = JOptionPane.showOptionDialog(null,
                 "Seleccione una opción para cambiar",
                 "Elección campo a cambiar", JOptionPane.YES_NO_CANCEL_OPTION,
@@ -199,11 +204,13 @@ public class metodosAdmin {
                 new Object[]{"Descripción", "Precio", "Categoria", "Subcategoria", "IVA"},
                 "Precio");
         switch (campoCambiar) {
+            //Pide descripcion nueva
             case 0 -> {
                 String desc = JOptionPane.showInputDialog("Introduce la nueva descripción del producto");
                 menuTPV.get(posicion).setDescripcion(desc);
             }
-
+            
+            //Pide precio nuevo
             case 1 -> {
                 boolean repetir = true;
                 double precio = 0;
@@ -218,7 +225,8 @@ public class metodosAdmin {
                 } while (repetir);
                 menuTPV.get(posicion).setPrecio(precio);
             }
-
+            
+            //Pide nueva categoria
             case 2 -> {
                 categoria = (Categorias) JOptionPane.showInputDialog(
                         null, "Seleccione la nueva categoría",
@@ -227,7 +235,8 @@ public class metodosAdmin {
                         Categorias.COMIDAS);
                 menuTPV.get(posicion).setCategoria(categoria);
             }
-
+            
+            //Pide subcategoria nueva
             case 3 -> {
                 Subcategorias subcategoria = (Subcategorias) JOptionPane.showInputDialog(
                         null, "Seleccione la nueva subcategoria",
@@ -236,7 +245,8 @@ public class metodosAdmin {
                         Subcategorias.ALCOHOL);
                 menuTPV.get(posicion).setSc(subcategoria);
             }
-
+            
+            //Pide nuevo IVA
             case 4 -> {
                 IVA iva = (IVA) JOptionPane.showInputDialog(
                         null, "Seleccione el nuevo Iva",
@@ -257,7 +267,8 @@ public class metodosAdmin {
                 JOptionPane.QUESTION_MESSAGE, null,
                 new Object[]{"Comidas", "Bebidas", "Postres"},
                 "Comidas");
-
+        
+        //Muestra las diferentes opciones de producto dependiedo de la seleccion
         switch (seleccion) {
             case 0 -> {
                 posicion = MetodosDeClases.cartaComidas(menuTPV);
@@ -275,6 +286,8 @@ public class metodosAdmin {
     }
 
     public static void comprobarVentas(ArrayList<Ticket> ventas) {
+        
+        //Pregunta que tipo de busqueda quieres hacer
         int seleccion = JOptionPane.showOptionDialog(null,
                 "Seleccione que quires comprobar",
                 "Ventas", JOptionPane.YES_NO_CANCEL_OPTION,
@@ -283,14 +296,18 @@ public class metodosAdmin {
                 "Todas las ventas");
 
         switch (seleccion) {
+            //Muestra todos los tickets
             case 0 -> {
                 JOptionPane.showMessageDialog(null, ventas);
             }
+            
+            //Muestra los tickets de una fecha determinada
             case 1 -> {
                 boolean repetir = true;
                 int año = 0;
                 int mes = 0;
                 int dia = 0;
+                //Pide año venta
                 do {
                     do {
                         try {
@@ -307,7 +324,8 @@ public class metodosAdmin {
                                 "Datos erroneo introduce de nuevo", "Comprobación", 0);
                     }
                 } while (año < 1000);
-
+                
+                //Pide mes venta
                 do {
                     do {
                         try {
@@ -324,7 +342,8 @@ public class metodosAdmin {
                                 "Datos eroneo introduce de nuevo", "Comprobación", 0);
                     }
                 } while (mes < 1 || mes > 12);
-
+                
+                //Pide dia venta
                 do {
                     do {
                         try {
@@ -343,7 +362,8 @@ public class metodosAdmin {
                 } while (dia < 1 || dia > 31);
 
                 LocalDate fecha = LocalDate.of(año, mes, dia);
-
+                
+                //Busqueda del ticket
                 for (int i = 0; i < ventas.size(); i++) {
                     if (fecha.equals(ventas.get(i).getFecha())) {
                         JOptionPane.showMessageDialog(null, ventas.get(i), "Ventas", 1);
