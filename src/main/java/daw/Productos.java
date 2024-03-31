@@ -94,7 +94,7 @@ public class Productos {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         DecimalFormat df = new DecimalFormat("#,##");
-        sb.append(", Descripción = ").append(descripcion);
+        sb.append("  Descripción = ").append(descripcion);
         sb.append(", Precio = ").append(df.format(precio));
         sb.append(", Stock = ").append(stock);
         return sb.toString();
